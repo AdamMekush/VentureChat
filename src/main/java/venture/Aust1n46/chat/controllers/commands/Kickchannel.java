@@ -5,6 +5,9 @@ import org.bukkit.command.CommandSender;
 
 import com.google.inject.Inject;
 
+import org.bukkit.entity.Player;
+import venture.Aust1n46.chat.api.events.KickchannelPlayerEvent;
+import venture.Aust1n46.chat.api.events.UnmutePlayerEvent;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.ChatChannel;
@@ -12,6 +15,8 @@ import venture.Aust1n46.chat.model.UniversalCommand;
 import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.service.ConfigService;
 import venture.Aust1n46.chat.service.PlayerApiService;
+
+import java.util.Collections;
 
 public class Kickchannel extends UniversalCommand {
 	@Inject
@@ -64,8 +69,16 @@ public class Kickchannel extends UniversalCommand {
 					player.getPlayer()
 							.sendMessage(LocalizedMessage.SET_CHANNEL.toString().replace("{channel_color}", ChatColor.valueOf(configService.getDefaultColor().toUpperCase()) + "")
 									.replace("{channel_name}", configService.getDefaultChannel().getName()));
-				} else
+				} else {
 					player.setModified(true);
+				}
+
+				if(sender instanceof Player) {
+					new KickchannelPlayerEvent(player.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel)).callEvent();
+				} else {
+					new KickchannelPlayerEvent(player.getPlayer(), null, Collections.singleton(channel)).callEvent();
+				}
+
 			}
 			if (isThereABungeeChannel) {
 				pluginMessageController.synchronize(player, true);

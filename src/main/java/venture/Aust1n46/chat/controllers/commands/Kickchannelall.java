@@ -5,6 +5,8 @@ import org.bukkit.command.CommandSender;
 
 import com.google.inject.Inject;
 
+import org.bukkit.entity.Player;
+import venture.Aust1n46.chat.api.events.KickchannelPlayerEvent;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.ChatChannel;
@@ -12,6 +14,11 @@ import venture.Aust1n46.chat.model.UniversalCommand;
 import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.service.ConfigService;
 import venture.Aust1n46.chat.service.PlayerApiService;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.stream.Collectors;
 
 public class Kickchannelall extends UniversalCommand {
 	@Inject
@@ -47,6 +54,10 @@ public class Kickchannelall extends UniversalCommand {
 					}
 				}
 			}
+			Collection<ChatChannel> kickedChannels = player.getListening()
+					.stream()
+					.map(configService::getChannel)
+					.collect(Collectors.toList());
 			player.getListening().clear();
 			sender.sendMessage(LocalizedMessage.KICK_CHANNEL_ALL_SENDER.toString().replace("{player}", player.getName()));
 			player.getListening().add(configService.getDefaultChannel().getName());
@@ -66,6 +77,13 @@ public class Kickchannelall extends UniversalCommand {
 			} else {
 				player.setModified(true);
 			}
+
+			if(sender instanceof Player) {
+				new KickchannelPlayerEvent(player.getPlayer(), plugin.getServer().getPlayer(sender.getName()), kickedChannels).callEvent();
+			} else {
+				new KickchannelPlayerEvent(player.getPlayer(), null, kickedChannels).callEvent();
+			}
+
 			return;
 		}
 		sender.sendMessage(LocalizedMessage.COMMAND_NO_PERMISSION.toString());
