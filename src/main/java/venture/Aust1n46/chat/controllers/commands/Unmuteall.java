@@ -4,6 +4,9 @@ import org.bukkit.command.CommandSender;
 
 import com.google.inject.Inject;
 
+import org.bukkit.entity.Player;
+import venture.Aust1n46.chat.api.events.MutePlayerEvent;
+import venture.Aust1n46.chat.api.events.UnmutePlayerEvent;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.ChatChannel;
@@ -11,6 +14,12 @@ import venture.Aust1n46.chat.model.UniversalCommand;
 import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.service.ConfigService;
 import venture.Aust1n46.chat.service.PlayerApiService;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Unmuteall extends UniversalCommand {
 	@Inject
@@ -38,8 +47,10 @@ public class Unmuteall extends UniversalCommand {
 				return;
 			}
 			boolean bungee = false;
+			Collection<ChatChannel> unmutedChannels = new HashSet<>();
 			for (ChatChannel channel : configService.getChatChannels()) {
 				player.getMutes().remove(channel.getName());
+				unmutedChannels.add(channel);
 				if (channel.isBungeeEnabled()) {
 					bungee = true;
 				}
@@ -50,8 +61,16 @@ public class Unmuteall extends UniversalCommand {
 			sender.sendMessage(LocalizedMessage.UNMUTE_PLAYER_ALL_SENDER.toString().replace("{player}", player.getName()));
 			if (player.isOnline()) {
 				player.getPlayer().sendMessage(LocalizedMessage.UNMUTE_PLAYER_ALL_PLAYER.toString());
-			} else
+			} else {
 				player.setModified(true);
+			}
+
+			if(sender instanceof Player) {
+				new UnmutePlayerEvent(player.getPlayer(), plugin.getServer().getPlayer(sender.getName()), unmutedChannels).callEvent();
+			} else {
+				new UnmutePlayerEvent(player.getPlayer(), null, unmutedChannels).callEvent();
+			}
+
 			return;
 		} else {
 			sender.sendMessage(LocalizedMessage.COMMAND_NO_PERMISSION.toString());

@@ -13,6 +13,8 @@ import org.bukkit.util.StringUtil;
 
 import com.google.inject.Inject;
 
+import venture.Aust1n46.chat.api.events.MutePlayerEvent;
+import venture.Aust1n46.chat.api.events.UnmutePlayerEvent;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.ChatChannel;
@@ -66,6 +68,13 @@ public class Unmute extends UniversalCommand {
 				} else {
 					player.setModified(true);
 				}
+
+				if(sender instanceof Player) {
+					new UnmutePlayerEvent(player.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel)).callEvent();
+				} else {
+					new UnmutePlayerEvent(player.getPlayer(), null, Collections.singleton(channel)).callEvent();
+				}
+
 				return;
 			}
 			sender.sendMessage(LocalizedMessage.INVALID_CHANNEL.toString().replace("{args}", args[0]));
