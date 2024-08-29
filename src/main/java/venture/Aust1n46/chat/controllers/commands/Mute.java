@@ -2,18 +2,17 @@ package venture.Aust1n46.chat.controllers.commands;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import it.unimi.dsi.fastutil.ints.IntLists;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
 import com.google.inject.Inject;
 
+import venture.Aust1n46.chat.api.events.MutePlayerEvent;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.ChatChannel;
@@ -96,6 +95,13 @@ public class Mute extends UniversalCommand {
 							} else {
 								playerToMute.setModified(true);
 							}
+
+							if(sender instanceof Player) {
+								new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel), time).callEvent();
+							} else {
+								new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel), time).callEvent();
+							}
+
 							return;
 						} else {
 							playerToMute.getMutes().put(channel.getName(), new MuteContainer(channel.getName(), datetime + time, reason));
@@ -109,6 +115,13 @@ public class Mute extends UniversalCommand {
 							} else {
 								playerToMute.setModified(true);
 							}
+
+							if(sender instanceof Player) {
+								new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel), time, reason).callEvent();
+							} else {
+								new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel), time, reason).callEvent();
+							}
+
 							return;
 						}
 					} else {
@@ -122,6 +135,13 @@ public class Mute extends UniversalCommand {
 							} else {
 								playerToMute.setModified(true);
 							}
+
+							if(sender instanceof Player) {
+								new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel)).callEvent();
+							} else {
+								new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel)).callEvent();
+							}
+
 							return;
 						} else {
 							playerToMute.getMutes().put(channel.getName(), new MuteContainer(channel.getName(), 0, reason));
@@ -133,6 +153,13 @@ public class Mute extends UniversalCommand {
 							} else {
 								playerToMute.setModified(true);
 							}
+
+							if(sender instanceof Player) {
+								new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel), 0, reason).callEvent();
+							} else {
+								new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel), 0, reason).callEvent();
+							}
+
 							return;
 						}
 					}

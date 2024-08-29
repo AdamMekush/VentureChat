@@ -4,6 +4,8 @@ import org.bukkit.command.CommandSender;
 
 import com.google.inject.Inject;
 
+import org.bukkit.entity.Player;
+import venture.Aust1n46.chat.api.events.MutePlayerEvent;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.ChatChannel;
@@ -13,6 +15,9 @@ import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.service.ConfigService;
 import venture.Aust1n46.chat.service.PlayerApiService;
 import venture.Aust1n46.chat.utilities.FormatUtils;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 public class Muteall extends UniversalCommand {
 	@Inject
@@ -65,6 +70,19 @@ public class Muteall extends UniversalCommand {
 					player.getPlayer().sendMessage(LocalizedMessage.MUTE_PLAYER_ALL_PLAYER.toString());
 				} else
 					player.setModified(true);
+
+				Collection<ChatChannel> mutedChannels = player.getMutes()
+						.keySet()
+						.stream()
+						.map(configService::getChannel)
+						.collect(Collectors.toList());
+
+				if(sender instanceof Player) {
+					new MutePlayerEvent(player.getPlayer(), plugin.getServer().getPlayer(sender.getName()), mutedChannels, 0).callEvent();
+				} else {
+					new MutePlayerEvent(player.getPlayer(), null, mutedChannels, 0).callEvent();
+				}
+
 				return;
 			} else {
 				boolean bungee = false;
@@ -84,6 +102,19 @@ public class Muteall extends UniversalCommand {
 					player.getPlayer().sendMessage(LocalizedMessage.MUTE_PLAYER_ALL_PLAYER_REASON.toString().replace("{reason}", reason));
 				} else
 					player.setModified(true);
+
+				Collection<ChatChannel> mutedChannels = player.getMutes()
+						.keySet()
+						.stream()
+						.map(configService::getChannel)
+						.collect(Collectors.toList());
+
+				if(sender instanceof Player) {
+					new MutePlayerEvent(player.getPlayer(), plugin.getServer().getPlayer(sender.getName()), mutedChannels, 0).callEvent();
+				} else {
+					new MutePlayerEvent(player.getPlayer(), null, mutedChannels, 0).callEvent();
+				}
+
 				return;
 			}
 		} else {

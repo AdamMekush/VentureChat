@@ -7,18 +7,31 @@ import org.bukkit.event.HandlerList;
 
 import venture.Aust1n46.chat.model.ChatChannel;
 
-// TODO
+import java.util.Collection;
+
 public class MutePlayerEvent extends Event implements Cancellable {
 	private static final HandlerList handlers = new HandlerList();
 	private boolean cancelled;
-	private Player player;
-	private ChatChannel channel;
-	private int time;
+	private Player victim;
+	private Player operator;
+	private Collection<ChatChannel> channels;
+	private String reason = null;
+	private long time = 0;
 
-	public MutePlayerEvent(Player player, ChatChannel channel, int time) {
-		this.player = player;
-		this.channel = channel;
+	public MutePlayerEvent(Player victim, Player operator, Collection<ChatChannel> channels, long time, String reason) {
+		this(victim, operator, channels, time);
+		this.reason = reason;
+	}
+
+	public MutePlayerEvent(Player victim, Player operator, Collection<ChatChannel> channels, long time) {
+		this(victim, operator, channels);
 		this.time = time;
+	}
+
+	public MutePlayerEvent(Player victim, Player operator, Collection<ChatChannel> channels) {
+		this.victim = victim;
+		this.operator = operator;
+		this.channels = channels;
 		this.cancelled = false;
 	}
 
@@ -41,23 +54,31 @@ public class MutePlayerEvent extends Event implements Cancellable {
 		this.cancelled = cancel;
 	}
 
-	public Player getPlayer() {
-		return this.player;
+	public Player getVictim() {
+		return this.victim;
 	}
 
-	public void setChannel(ChatChannel channel) {
-		this.channel = channel;
+	public Player getOperator() {
+		return this.operator;
 	}
 
-	public ChatChannel getChannel() {
-		return this.channel;
+	public void setChannel(Collection<ChatChannel> channels) {
+		this.channels = channels;
 	}
 
-	public int getTime() {
+	public Collection<ChatChannel> getChannels() {
+		return this.channels;
+	}
+
+	public long getTime() {
 		return this.time;
 	}
 
-	public void setTime(int time) {
+	public void setTime(long time) {
 		this.time = time;
+	}
+
+	public String getReason(){
+		return  this.reason;
 	}
 }
