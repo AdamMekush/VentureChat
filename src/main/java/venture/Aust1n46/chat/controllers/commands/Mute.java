@@ -1,17 +1,9 @@
 package venture.Aust1n46.chat.controllers.commands;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import it.unimi.dsi.fastutil.ints.IntLists;
+import com.google.inject.Inject;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
-
-import com.google.inject.Inject;
-
 import venture.Aust1n46.chat.api.events.MutePlayerEvent;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
@@ -22,6 +14,14 @@ import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.service.ConfigService;
 import venture.Aust1n46.chat.service.PlayerApiService;
 import venture.Aust1n46.chat.utilities.FormatUtils;
+
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Mute extends UniversalCommand {
 	private static final List<String> COMMON_MUTE_TIMES = Collections.unmodifiableList(Arrays.asList(new String[] { "12h", "15m", "1d", "1h", "1m", "30s" }));
@@ -40,6 +40,7 @@ public class Mute extends UniversalCommand {
 
 	@Override
 	public void executeCommand(CommandSender sender, String command, String[] args) {
+		MutePlayerEvent mutePlayerEvent;
 		if (sender.hasPermission("venturechat.mute")) {
 			if (args.length < 2) {
 				sender.sendMessage(LocalizedMessage.COMMAND_INVALID_ARGUMENTS.toString().replace("{command}", "/mute").replace("{args}", "[channel] [player] {time} {reason}"));
@@ -85,6 +86,16 @@ public class Mute extends UniversalCommand {
 
 					if (time > 0) {
 						if (reason.isEmpty()) {
+							if(sender instanceof Player) {
+								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel), time);
+							} else {
+								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel), time);
+							}
+							mutePlayerEvent.callEvent();
+							if(mutePlayerEvent.isCancelled()){
+								return;
+							}
+
 							playerToMute.getMutes().put(channel.getName(), new MuteContainer(channel.getName(), datetime + time, ""));
 							String timeString = FormatUtils.parseTimeStringFromMillis(time);
 							sender.sendMessage(LocalizedMessage.MUTE_PLAYER_SENDER_TIME.toString().replace("{player}", playerToMute.getName())
@@ -96,14 +107,18 @@ public class Mute extends UniversalCommand {
 								playerToMute.setModified(true);
 							}
 
-							if(sender instanceof Player) {
-								new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel), time).callEvent();
-							} else {
-								new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel), time).callEvent();
-							}
-
 							return;
 						} else {
+							if(sender instanceof Player) {
+								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel), time, reason);
+							} else {
+								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel), time, reason);
+							}
+							mutePlayerEvent.callEvent();
+							if(mutePlayerEvent.isCancelled()){
+								return;
+							}
+
 							playerToMute.getMutes().put(channel.getName(), new MuteContainer(channel.getName(), datetime + time, reason));
 							String timeString = FormatUtils.parseTimeStringFromMillis(time);
 							sender.sendMessage(LocalizedMessage.MUTE_PLAYER_SENDER_TIME_REASON.toString().replace("{player}", playerToMute.getName())
@@ -116,16 +131,20 @@ public class Mute extends UniversalCommand {
 								playerToMute.setModified(true);
 							}
 
-							if(sender instanceof Player) {
-								new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel), time, reason).callEvent();
-							} else {
-								new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel), time, reason).callEvent();
-							}
-
 							return;
 						}
 					} else {
 						if (reason.isEmpty()) {
+							if(sender instanceof Player) {
+								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel));
+							} else {
+								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel));
+							}
+							mutePlayerEvent.callEvent();
+							if(mutePlayerEvent.isCancelled()){
+								return;
+							}
+
 							playerToMute.getMutes().put(channel.getName(), new MuteContainer(channel.getName(), 0, ""));
 							sender.sendMessage(LocalizedMessage.MUTE_PLAYER_SENDER.toString().replace("{player}", playerToMute.getName())
 									.replace("{channel_color}", channel.getColor()).replace("{channel_name}", channel.getName()));
@@ -136,15 +155,19 @@ public class Mute extends UniversalCommand {
 								playerToMute.setModified(true);
 							}
 
-							if(sender instanceof Player) {
-								new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel)).callEvent();
-							} else {
-								new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel)).callEvent();
-							}
-
-							return;
+                            return;
 						} else {
-							playerToMute.getMutes().put(channel.getName(), new MuteContainer(channel.getName(), 0, reason));
+                            if(sender instanceof Player) {
+                                mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel), 0, reason);
+                            } else {
+                                mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel), 0, reason);
+                            }
+							mutePlayerEvent.callEvent();
+                            if(mutePlayerEvent.isCancelled()){
+                                return;
+                            }
+
+                            playerToMute.getMutes().put(channel.getName(), new MuteContainer(channel.getName(), 0, reason));
 							sender.sendMessage(LocalizedMessage.MUTE_PLAYER_SENDER_REASON.toString().replace("{player}", playerToMute.getName())
 									.replace("{channel_color}", channel.getColor()).replace("{channel_name}", channel.getName()).replace("{reason}", reason));
 							if (playerToMute.isOnline()) {
@@ -153,13 +176,6 @@ public class Mute extends UniversalCommand {
 							} else {
 								playerToMute.setModified(true);
 							}
-
-							if(sender instanceof Player) {
-								new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel), 0, reason).callEvent();
-							} else {
-								new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel), 0, reason).callEvent();
-							}
-
 							return;
 						}
 					}
