@@ -6,8 +6,7 @@ import org.bukkit.command.CommandSender;
 import com.google.inject.Inject;
 
 import org.bukkit.entity.Player;
-import venture.Aust1n46.chat.api.events.KickchannelPlayerEvent;
-import venture.Aust1n46.chat.api.events.UnmutePlayerEvent;
+import venture.Aust1n46.chat.api.events.KickChannelPlayerEvent;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.ChatChannel;
@@ -33,6 +32,7 @@ public class Kickchannel extends UniversalCommand {
 
 	@Override
 	public void executeCommand(CommandSender sender, String command, String[] args) {
+		KickChannelPlayerEvent kickChannelPlayerEvent;
 		if (sender.hasPermission("venturechat.kickchannel")) {
 			if (args.length < 2) {
 				sender.sendMessage(LocalizedMessage.COMMAND_INVALID_ARGUMENTS.toString().replace("{command}", "/kickchannel").replace("{args}", "[player] [channel]"));
@@ -48,6 +48,17 @@ public class Kickchannel extends UniversalCommand {
 				sender.sendMessage(LocalizedMessage.INVALID_CHANNEL.toString().replace("{args}", args[1]));
 				return;
 			}
+
+			if(sender instanceof Player) {
+				kickChannelPlayerEvent = new KickChannelPlayerEvent(player.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel));
+			} else {
+				kickChannelPlayerEvent = new KickChannelPlayerEvent(player.getPlayer(), null, Collections.singleton(channel));
+			}
+			kickChannelPlayerEvent.callEvent();
+			if(kickChannelPlayerEvent.isCancelled()){
+				return;
+			}
+
 			sender.sendMessage(LocalizedMessage.KICK_CHANNEL.toString().replace("{player}", args[0]).replace("{channel_color}", channel.getColor() + "").replace("{channel_name}",
 					channel.getName()));
 			player.getListening().remove(channel.getName());
@@ -71,12 +82,6 @@ public class Kickchannel extends UniversalCommand {
 									.replace("{channel_name}", configService.getDefaultChannel().getName()));
 				} else {
 					player.setModified(true);
-				}
-
-				if(sender instanceof Player) {
-					new KickchannelPlayerEvent(player.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel)).callEvent();
-				} else {
-					new KickchannelPlayerEvent(player.getPlayer(), null, Collections.singleton(channel)).callEvent();
 				}
 
 			}
