@@ -54,10 +54,6 @@ public class UnmutePlayerEvent extends Event implements Cancellable {
         return this.operator;
     }
 
-    public void setChannel(Set<ChatChannel> channels) {
-        this.channels = channels;
-    }
-
     public Set<ChatChannel> getChannels() {
         return this.channels;
     }

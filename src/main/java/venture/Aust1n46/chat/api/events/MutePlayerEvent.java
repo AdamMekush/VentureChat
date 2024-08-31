@@ -67,20 +67,12 @@ public class MutePlayerEvent extends Event implements Cancellable {
 		return this.operator;
 	}
 
-	public void setChannel(Set<ChatChannel> channels) {
-		this.channels = channels;
-	}
-
 	public Set<ChatChannel> getChannels() {
 		return this.channels;
 	}
 
 	public long getTime() {
 		return this.time;
-	}
-
-	public void setTime(long time) {
-		this.time = time;
 	}
 
 	public String getReason(){
