@@ -6,6 +6,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 import venture.Aust1n46.chat.api.events.ChannelJoinEvent;
+import venture.Aust1n46.chat.api.events.ChannelLeaveEvent;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.ChatChannel;
@@ -36,6 +37,13 @@ public class Channel extends PlayerCommand {
 				mcp.getPlayer().sendMessage(LocalizedMessage.INVALID_CHANNEL.toString().replace("{args}", args[0]));
 				return;
 			}
+
+			ChannelLeaveEvent channelLeaveEvent = new ChannelLeaveEvent(mcp.getPlayer(), mcp.getCurrentChannel());
+			channelLeaveEvent.callEvent();
+			if(channelLeaveEvent.isCancelled()){
+				return;
+			}
+
 			ChatChannel channel = configService.getChannel(args[0]);
 			ChannelJoinEvent channelJoinEvent = new ChannelJoinEvent(mcp.getPlayer(), channel,
 					LocalizedMessage.SET_CHANNEL.toString().replace("{channel_color}", channel.getColor() + "").replace("{channel_name}", channel.getName()));
