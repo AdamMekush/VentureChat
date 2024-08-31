@@ -6,7 +6,6 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import venture.Aust1n46.chat.model.ChatChannel;
 
-import java.util.HashSet;
 import java.util.Set;
 
 /**
