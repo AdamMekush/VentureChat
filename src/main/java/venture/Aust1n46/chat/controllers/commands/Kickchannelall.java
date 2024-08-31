@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import com.google.inject.Inject;
 
 import org.bukkit.entity.Player;
+import venture.Aust1n46.chat.api.events.ChannelLeaveEvent;
 import venture.Aust1n46.chat.api.events.KickChannelPlayerEvent;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
@@ -34,6 +35,7 @@ public class Kickchannelall extends UniversalCommand {
 	@Override
 	public void executeCommand(CommandSender sender, String command, String[] args) {
 		KickChannelPlayerEvent kickChannelPlayerEvent;
+		ChannelLeaveEvent channelLeaveEvent;
 		if (sender.hasPermission("venturechat.kickchannelall")) {
 			if (args.length < 1) {
 				sender.sendMessage(LocalizedMessage.COMMAND_INVALID_ARGUMENTS.toString().replace("{command}", "/kickchannelall").replace("{args}", "[player]"));
@@ -65,6 +67,12 @@ public class Kickchannelall extends UniversalCommand {
 			}
 			kickChannelPlayerEvent.callEvent();
 			if(kickChannelPlayerEvent.isCancelled()){
+				return;
+			}
+
+			channelLeaveEvent = new ChannelLeaveEvent(player.getPlayer(), player.getCurrentChannel());
+			channelLeaveEvent.callEvent();
+			if(channelLeaveEvent.isCancelled()){
 				return;
 			}
 
