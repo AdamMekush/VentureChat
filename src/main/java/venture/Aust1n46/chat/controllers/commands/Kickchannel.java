@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import com.google.inject.Inject;
 
 import org.bukkit.entity.Player;
+import venture.Aust1n46.chat.api.events.ChannelLeaveEvent;
 import venture.Aust1n46.chat.api.events.KickChannelPlayerEvent;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
@@ -56,6 +57,12 @@ public class Kickchannel extends UniversalCommand {
 			}
 			kickChannelPlayerEvent.callEvent();
 			if(kickChannelPlayerEvent.isCancelled()){
+				return;
+			}
+
+			ChannelLeaveEvent channelLeaveEvent = new ChannelLeaveEvent(player.getPlayer(), channel);
+			channelLeaveEvent.callEvent();
+			if(channelLeaveEvent.isCancelled()){
 				return;
 			}
 
