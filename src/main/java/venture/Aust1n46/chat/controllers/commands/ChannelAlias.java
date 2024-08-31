@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 
 import com.google.inject.Inject;
 
+import venture.Aust1n46.chat.api.events.ChannelLeaveEvent;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.ChatChannel;
@@ -43,6 +44,13 @@ public class ChannelAlias extends PlayerCommand {
 								playerApiService.getMineverseChatPlayer(mcp.getConversation()).getName()));
 						mcp.setConversation(null);
 					}
+
+					ChannelLeaveEvent channelLeaveEvent = new ChannelLeaveEvent(mcp.getPlayer(), mcp.getCurrentChannel());
+					channelLeaveEvent.callEvent();
+					if(channelLeaveEvent.isCancelled()){
+						return;
+					}
+
 					mcp.getListening().add(channel.getName());
 					mcp.setCurrentChannel(channel);
 					if (channel.isBungeeEnabled()) {
