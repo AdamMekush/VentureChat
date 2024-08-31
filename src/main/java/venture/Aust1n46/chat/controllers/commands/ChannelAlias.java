@@ -31,6 +31,13 @@ public class ChannelAlias extends PlayerCommand {
 		for (ChatChannel channel : configService.getChatChannels()) {
 			if (commandLabel.toLowerCase().equals(channel.getAlias())) {
 				if (args.length == 0) {
+
+					ChannelLeaveEvent channelLeaveEvent = new ChannelLeaveEvent(mcp.getPlayer(), mcp.getCurrentChannel());
+					channelLeaveEvent.callEvent();
+					if(channelLeaveEvent.isCancelled()){
+						return;
+					}
+
 					mcp.getPlayer()
 							.sendMessage(LocalizedMessage.SET_CHANNEL.toString().replace("{channel_color}", channel.getColor() + "").replace("{channel_name}", channel.getName()));
 					if (mcp.getConversation() != null) {
@@ -43,12 +50,6 @@ public class ChannelAlias extends PlayerCommand {
 						mcp.getPlayer().sendMessage(LocalizedMessage.EXIT_PRIVATE_CONVERSATION.toString().replace("{player_receiver}",
 								playerApiService.getMineverseChatPlayer(mcp.getConversation()).getName()));
 						mcp.setConversation(null);
-					}
-
-					ChannelLeaveEvent channelLeaveEvent = new ChannelLeaveEvent(mcp.getPlayer(), mcp.getCurrentChannel());
-					channelLeaveEvent.callEvent();
-					if(channelLeaveEvent.isCancelled()){
-						return;
 					}
 
 					mcp.getListening().add(channel.getName());
