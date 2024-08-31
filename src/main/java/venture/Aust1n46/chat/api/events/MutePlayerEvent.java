@@ -4,31 +4,36 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-
 import venture.Aust1n46.chat.model.ChatChannel;
 
-import java.util.Collection;
+import java.util.Set;
 
+/**
+ * Event called when player has been muted.
+ * This event can be cancelled.
+ *
+ * @author AdamMekush
+ */
 public class MutePlayerEvent extends Event implements Cancellable {
 	private static final HandlerList handlers = new HandlerList();
 	private boolean cancelled;
 	private Player victim;
 	private Player operator;
-	private Collection<ChatChannel> channels;
+	private Set<ChatChannel> channels;
 	private String reason = null;
 	private long time = 0;
 
-	public MutePlayerEvent(Player victim, Player operator, Collection<ChatChannel> channels, long time, String reason) {
+	public MutePlayerEvent(Player victim, Player operator, Set<ChatChannel> channels, long time, String reason) {
 		this(victim, operator, channels, time);
 		this.reason = reason;
 	}
 
-	public MutePlayerEvent(Player victim, Player operator, Collection<ChatChannel> channels, long time) {
+	public MutePlayerEvent(Player victim, Player operator, Set<ChatChannel> channels, long time) {
 		this(victim, operator, channels);
 		this.time = time;
 	}
 
-	public MutePlayerEvent(Player victim, Player operator, Collection<ChatChannel> channels) {
+	public MutePlayerEvent(Player victim, Player operator, Set<ChatChannel> channels) {
 		this.victim = victim;
 		this.operator = operator;
 		this.channels = channels;
@@ -62,11 +67,11 @@ public class MutePlayerEvent extends Event implements Cancellable {
 		return this.operator;
 	}
 
-	public void setChannel(Collection<ChatChannel> channels) {
+	public void setChannel(Set<ChatChannel> channels) {
 		this.channels = channels;
 	}
 
-	public Collection<ChatChannel> getChannels() {
+	public Set<ChatChannel> getChannels() {
 		return this.channels;
 	}
 

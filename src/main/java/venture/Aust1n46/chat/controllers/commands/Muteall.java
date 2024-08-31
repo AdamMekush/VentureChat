@@ -16,7 +16,7 @@ import venture.Aust1n46.chat.service.ConfigService;
 import venture.Aust1n46.chat.service.PlayerApiService;
 import venture.Aust1n46.chat.utilities.FormatUtils;
 
-import java.util.Collection;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Muteall extends UniversalCommand {
@@ -53,11 +53,11 @@ public class Muteall extends UniversalCommand {
 				}
 				reason = FormatUtils.FormatStringAll(reasonBuilder.toString().trim());
 			}
-			Collection<ChatChannel> mutedChannels = player.getMutes()
+			Set<ChatChannel> mutedChannels = player.getMutes()
 					.keySet()
 					.stream()
 					.map(configService::getChannel)
-					.collect(Collectors.toList());
+					.collect(Collectors.toSet());
 			if (reason.isEmpty()) {
 				if(sender instanceof Player) {
 					mutePlayerEvent = new MutePlayerEvent(player.getPlayer(), plugin.getServer().getPlayer(sender.getName()), mutedChannels, 0);
