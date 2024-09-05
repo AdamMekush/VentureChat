@@ -1,5 +1,5 @@
 name: VentureChat
-version: ${project.version}
+version: ${version}
 api-version: 1.13
 main: venture.Aust1n46.chat.initiators.application.VentureChat
 depend: [Vault, ProtocolLib, PlaceholderAPI]
