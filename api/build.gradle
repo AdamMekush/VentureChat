@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+}
+
+group = 'venture.Aust1n46.chat.api'
+version = '4.0.0'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "spigotmc-repo"
+        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+    }
+}
+
+dependencies {
+    compileOnly("org.projectlombok:lombok:1.18.22")
+    annotationProcessor("org.projectlombok:lombok:1.18.22")
+    implementation("org.spigotmc:spigot-api:1.21.1-R0.1-SNAPSHOT")
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+
+}
