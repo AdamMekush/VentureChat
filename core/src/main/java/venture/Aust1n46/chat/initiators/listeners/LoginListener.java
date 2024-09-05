@@ -8,6 +8,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.controllers.SpigotFlatFileController;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
@@ -46,7 +47,7 @@ public class LoginListener implements Listener {
 
 	@EventHandler(priority = EventPriority.LOW)
 	public void onPlayerQuit(PlayerQuitEvent playerQuitEvent) {
-		VentureChatPlayer ventureChatPlayer = playerApiService.getOnlineMineverseChatPlayer(playerQuitEvent.getPlayer());
+		IVentureChatPlayer ventureChatPlayer = playerApiService.getOnlineMineverseChatPlayer(playerQuitEvent.getPlayer());
 		if (ventureChatPlayer == null) {
 			log.warn("onPlayerQuit() Could not find VentureChatPlayer");
 		} else {

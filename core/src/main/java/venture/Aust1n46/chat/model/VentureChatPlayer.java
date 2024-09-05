@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.Builder.Default;
 import org.bukkit.entity.Player;
 import venture.Aust1n46.chat.api.interfaces.IChatChannel;
+import venture.Aust1n46.chat.api.interfaces.IChatMessage;
 import venture.Aust1n46.chat.api.interfaces.IMuteContainer;
 import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 
@@ -62,5 +63,20 @@ public class VentureChatPlayer implements IVentureChatPlayer {
 	@Default
 	private Set<String> blockedCommands = new HashSet<>();
 	@Default
-	private List<ChatMessage> messages = new ArrayList<>();
+	private List<IChatMessage> messages = new ArrayList<>();
+
+	@Override
+	public void setPlayer(UUID o) {
+		this.player = null;
+	}
+
+	@Override
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	@Override
+	public void setParty(UUID uuid) {
+		this.party = uuid;
+	}
 }

@@ -6,6 +6,8 @@ import com.google.inject.Inject;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import venture.Aust1n46.chat.api.interfaces.IChatMessage;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.ChatMessage;
@@ -60,14 +62,14 @@ public class Edit extends UniversalCommand {
         new BukkitRunnable() {
             public void run() {
                 final Map<Player, List<PacketContainer>> packets = new HashMap();
-                for (VentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
-                    List<ChatMessage> messages = p.getMessages();
+                for (IVentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
+                    List<IChatMessage> messages = p.getMessages();
                     List<PacketContainer> playerPackets = new ArrayList();
                     boolean resend = false;
                     for (int fill = 0; fill < 100 - messages.size(); fill++) {
                         playerPackets.add(Edit.this.emptyLinePacketContainer);
                     }
-                    for (ChatMessage message : messages) {
+                    for (IChatMessage message : messages) {
                         if (message.getHash() == hash) {
                             WrappedChatComponent removedComponent = p.getPlayer().hasPermission("venturechat.message.bypass") ? Edit.this.getMessageDeletedChatComponentAdmin(message) : Edit.this.getMessageDeletedChatComponentPlayer();
                             message.setComponent(removedComponent);
@@ -114,7 +116,7 @@ public class Edit extends UniversalCommand {
         return this.messageDeletedComponentPlayer;
     }
 
-    public WrappedChatComponent getMessageDeletedChatComponentAdmin(ChatMessage message) {
+    public WrappedChatComponent getMessageDeletedChatComponentAdmin(IChatMessage message) {
         String oMessage = message.getComponent().getJson().substring(1, message.getComponent().getJson().length() - 11);
         if (message.getMessage().contains(FormatUtils.FormatStringAll(plugin.getConfig().getString("messageremovericon")))) {
             oMessage = oMessage.substring(0, oMessage.length() - plugin.getConfig().getString("messageremovericon").length() - 4) + "\"}]";

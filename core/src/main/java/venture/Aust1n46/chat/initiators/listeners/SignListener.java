@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.service.PlayerApiService;
 import venture.Aust1n46.chat.utilities.FormatUtils;
@@ -18,7 +19,7 @@ public class SignListener implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onSignChange(SignChangeEvent event) {
-		VentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(event.getPlayer());
+		IVentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(event.getPlayer());
 		for (int a = 0; a < event.getLines().length; a++) {
 			String line = event.getLine(a);
 			if (mcp.getPlayer().hasPermission("venturechat.color.legacy")) {

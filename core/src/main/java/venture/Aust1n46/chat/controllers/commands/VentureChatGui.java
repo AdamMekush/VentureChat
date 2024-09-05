@@ -9,6 +9,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.ChatChannel;
@@ -44,7 +45,7 @@ public class VentureChatGui extends PlayerCommand {
 			player.sendMessage(LocalizedMessage.COMMAND_INVALID_ARGUMENTS.toString().replace("{command}", "/venturechatgui").replace("{args}", "[player] [channel] [hashcode]"));
 			return;
 		}
-		VentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(player);
+		IVentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(player);
 		if (mcp.getPlayer().hasPermission("venturechat.gui")) {
 			VentureChatPlayer target = playerApiService.getMineverseChatPlayer(args[0]);
 			if (target == null && !args[0].equals("Discord")) {
@@ -75,7 +76,7 @@ public class VentureChatGui extends PlayerCommand {
 	}
 
 	@SuppressWarnings("deprecation")
-	private void openInventory(VentureChatPlayer mcp, VentureChatPlayer target, ChatChannel channel, int hash) {
+	private void openInventory(IVentureChatPlayer mcp, VentureChatPlayer target, ChatChannel channel, int hash) {
 		Inventory inv = plugin.getServer().createInventory(null, this.getSlots(), "VentureChat: " + target.getName() + " GUI");
 		ItemStack close = null;
 		ItemStack skull = null;
@@ -132,7 +133,7 @@ public class VentureChatGui extends PlayerCommand {
 	}
 
 	@SuppressWarnings("deprecation")
-	private void openInventoryDiscord(VentureChatPlayer mcp, ChatChannel channel, int hash) {
+	private void openInventoryDiscord(IVentureChatPlayer mcp, ChatChannel channel, int hash) {
 		Inventory inv = plugin.getServer().createInventory(null, this.getSlots(), "VentureChat: Discord_Message GUI");
 		ItemStack close = null;
 		ItemStack skull = null;

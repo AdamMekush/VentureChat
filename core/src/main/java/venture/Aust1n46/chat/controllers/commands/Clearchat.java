@@ -2,6 +2,7 @@ package venture.Aust1n46.chat.controllers.commands;
 
 import com.google.inject.Inject;
 import org.bukkit.command.CommandSender;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.localization.InternalMessage;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.UniversalCommand;
@@ -20,7 +21,7 @@ public class Clearchat extends UniversalCommand {
     @Override
     public void executeCommand(CommandSender sender, String command, String[] args) {
         if (sender.hasPermission("venturechat.clearchat")) {
-            for (VentureChatPlayer player : ventureChatApi.getOnlineMineverseChatPlayers()) {
+            for (IVentureChatPlayer player : ventureChatApi.getOnlineMineverseChatPlayers()) {
                 if (!player.getPlayer().hasPermission("venturechat.clearchat.bypass")) {
                     for (int a = 1; a <= 20; a++)
                         player.getPlayer().sendMessage(InternalMessage.EMPTY_STRING.toString());

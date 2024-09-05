@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import org.bukkit.Server;
 import org.bukkit.scheduler.BukkitScheduler;
 import venture.Aust1n46.chat.api.interfaces.IMuteContainer;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
@@ -32,7 +33,7 @@ public class UnmuteScheduler {
 		scheduler.runTaskTimerAsynchronously(plugin, new Runnable() {
 			@Override
 			public void run() {
-				for (VentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
+				for (IVentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
 					long currentTimeMillis = System.currentTimeMillis();
 					Iterator<IMuteContainer> iterator = p.getMutes().values().iterator();
 					while (iterator.hasNext()) {

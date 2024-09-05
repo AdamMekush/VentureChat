@@ -6,6 +6,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import venture.Aust1n46.chat.api.interfaces.IMuteContainer;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.model.ChatChannel;
 import venture.Aust1n46.chat.model.MuteContainer;
@@ -244,7 +245,7 @@ public class SpigotFlatFileController {
 		}
 	}
 
-	public void savePlayerData(VentureChatPlayer mcp) {
+	public void savePlayerData(IVentureChatPlayer mcp) {
 		if (mcp == null || uuidService.shouldSkipOfflineUUID(mcp.getUuid()) || (!mcp.isOnline() && !mcp.isModified())) {
 			return;
 		}

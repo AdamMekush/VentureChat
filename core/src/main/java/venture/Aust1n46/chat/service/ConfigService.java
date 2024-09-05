@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.model.*;
 import venture.Aust1n46.chat.utilities.FormatUtils;
@@ -166,7 +167,7 @@ public class ConfigService {
 	}
 
 	// TODO Investigate if all of this logic should be here
-	public boolean isListening(VentureChatPlayer ventureChatPlayer, String channel) {
+	public boolean isListening(IVentureChatPlayer ventureChatPlayer, String channel) {
 		if (ventureChatPlayer.isOnline()) {
 			if (isChannel(channel)) {
 				ChatChannel chatChannel = getChannel(channel);
@@ -185,7 +186,7 @@ public class ConfigService {
 	}
 
 	// TODO Investigate if all of this logic should be here
-	public boolean isRangedSpy(final VentureChatPlayer ventureChatPlayer) {
+	public boolean isRangedSpy(final IVentureChatPlayer ventureChatPlayer) {
 		if (ventureChatPlayer.isOnline()) {
 			if (!ventureChatPlayer.getPlayer().hasPermission("venturechat.rangedspy")) {
 				ventureChatPlayer.setRangedSpy(false);
@@ -196,7 +197,7 @@ public class ConfigService {
 	}
 
 	// TODO Investigate if all of this logic should be here
-	public boolean isSpy(final VentureChatPlayer ventureChatPlayer) {
+	public boolean isSpy(final IVentureChatPlayer ventureChatPlayer) {
 		if (ventureChatPlayer.isOnline()) {
 			if (!ventureChatPlayer.getPlayer().hasPermission("venturechat.spy")) {
 				ventureChatPlayer.setSpy(false);
@@ -207,7 +208,7 @@ public class ConfigService {
 	}
 
 	// TODO Investigate if all of this logic should be here
-	public boolean isCommandSpy(final VentureChatPlayer ventureChatPlayer) {
+	public boolean isCommandSpy(final IVentureChatPlayer ventureChatPlayer) {
 		if (ventureChatPlayer.isOnline()) {
 			if (!ventureChatPlayer.getPlayer().hasPermission("venturechat.commandspy")) {
 				ventureChatPlayer.setCommandSpy(false);

@@ -6,6 +6,7 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import venture.Aust1n46.chat.api.interfaces.IChatChannel;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.service.PlayerApiService;
@@ -31,7 +32,7 @@ public class VentureChatPlaceholders extends PlaceholderExpansion {
 		if (p == null) {
 			return null;
 		}
-		final VentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(p);
+		final IVentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(p);
 		if (mcp == null) {
 			return StringUtils.EMPTY;
 		}

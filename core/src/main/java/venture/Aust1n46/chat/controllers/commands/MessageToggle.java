@@ -2,6 +2,7 @@ package venture.Aust1n46.chat.controllers.commands;
 
 import com.google.inject.Inject;
 import org.bukkit.entity.Player;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.PlayerCommand;
@@ -21,7 +22,7 @@ public class MessageToggle extends PlayerCommand {
 
 	@Override
 	public void executeCommand(Player player, String command, String[] args) {
-		VentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(player);
+		IVentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(player);
 		if (mcp.getPlayer().hasPermission("venturechat.messagetoggle")) {
 			if (!mcp.isMessageToggle()) {
 				mcp.setMessageToggle(true);

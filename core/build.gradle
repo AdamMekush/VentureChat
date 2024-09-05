@@ -3,7 +3,7 @@ plugins {
     id 'java'
 }
 
-group = 'mineverse.Aust1n46.chat'
+group = 'venture.Aust1n46.chat'
 version = '4.0.0'
 
 repositories {
@@ -65,7 +65,7 @@ dependencies {
     implementation("com.zaxxer:HikariCP:2.3.10")
     implementation("me.clip:placeholderapi:2.10.5")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
-    implementation("com.comphenix.protocol:ProtocolLib:5.3.0-SNAPSHOT")
+    compileOnly("com.comphenix.protocol:ProtocolLib:5.3.0-SNAPSHOT")
     implementation("com.massivecraft.factions:Factions:3.3.0")
     implementation("com.massivecraft.massivecore:MassiveCore:3.3.0")
     implementation("com.github.TownyAdvanced:Towny:0.96.7.0")
@@ -119,4 +119,5 @@ shadowJar {
     relocate 'com.google.inject', 'shaded.com.google.inject'
     relocate 'org.aopalliance', 'shaded.org.aopalliance'
     relocate 'jakarta.inject', 'shaded.jakarta.inject'
+    relocate 'com.comphenix.protocol', 'shaded.com.comphenix.protocol'
 }

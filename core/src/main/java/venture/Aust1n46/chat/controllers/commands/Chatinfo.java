@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import venture.Aust1n46.chat.api.interfaces.IMuteContainer;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.model.ChatChannel;
 import venture.Aust1n46.chat.model.UniversalCommand;
 import venture.Aust1n46.chat.model.VentureChatPlayer;
@@ -30,7 +31,7 @@ public class Chatinfo extends UniversalCommand {
 					plugin.getServer().getConsoleSender().sendMessage(ChatColor.RED + "This command must be run by a player; use /ci [name]");
 					return;
 				}
-				VentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer((Player) sender);
+				IVentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer((Player) sender);
 				String listen = "";
 				String mute = "";
 				String blockedcommands = "";

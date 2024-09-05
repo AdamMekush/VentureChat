@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.ChatChannel;
@@ -91,7 +92,7 @@ public class Unmute extends UniversalCommand {
 					return completions;
 				}
 				StringUtil.copyPartialMatches(args[1], playerApiService.getOnlineMineverseChatPlayers().stream().filter(mcp -> mcp.getMutes().containsKey(chatChannelObj.getName()))
-						.map(VentureChatPlayer::getName).collect(Collectors.toList()), completions);
+						.map(IVentureChatPlayer::getName).collect(Collectors.toList()), completions);
 				Collections.sort(completions);
 				return completions;
 			}

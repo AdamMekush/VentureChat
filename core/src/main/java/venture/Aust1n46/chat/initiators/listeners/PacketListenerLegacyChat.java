@@ -8,6 +8,8 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import venture.Aust1n46.chat.api.interfaces.IChatMessage;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.model.ChatMessage;
 import venture.Aust1n46.chat.model.VentureChatPlayer;
@@ -37,7 +39,7 @@ public class PacketListenerLegacyChat extends PacketAdapter {
 			return;
 		}
 
-		VentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(event.getPlayer());
+		IVentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(event.getPlayer());
 		if (mcp == null) {
 			return;
 		}
@@ -75,7 +77,7 @@ public class PacketListenerLegacyChat extends PacketAdapter {
 			return;
 		}
 		int hash = message.hashCode();
-		final List<ChatMessage> messages = mcp.getMessages();
+		final List<IChatMessage> messages = mcp.getMessages();
 		if (messages.size() >= 100) {
 			messages.remove(0);
 		}

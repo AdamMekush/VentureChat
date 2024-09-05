@@ -2,6 +2,7 @@ package venture.Aust1n46.chat.controllers.commands;
 
 import com.google.inject.Inject;
 import org.bukkit.command.CommandSender;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.UniversalCommand;
@@ -25,7 +26,7 @@ public class Commandblock extends UniversalCommand {
     public void executeCommand(CommandSender sender, String command, String[] args) {
         if (sender.hasPermission("venturechat.commandblock")) {
             if (args.length > 1) {
-                VentureChatPlayer player = playerApiService.getOnlineMineverseChatPlayer(args[0]);
+                IVentureChatPlayer player = playerApiService.getOnlineMineverseChatPlayer(args[0]);
                 if (player == null) {
                     sender.sendMessage(LocalizedMessage.PLAYER_OFFLINE.toString()
                             .replace("{args}", args[0]));

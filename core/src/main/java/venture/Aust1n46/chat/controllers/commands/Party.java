@@ -3,6 +3,7 @@ package venture.Aust1n46.chat.controllers.commands;
 import com.google.inject.Inject;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.model.PlayerCommand;
 import venture.Aust1n46.chat.model.VentureChatPlayer;
@@ -30,7 +31,7 @@ public class Party extends PlayerCommand {
 
 	@Override
 	public void executeCommand(Player sender, String command, String[] args) {
-		VentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(sender);
+		IVentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(sender);
 		if (!mcp.getPlayer().hasPermission("venturechat.party")) {
 			mcp.getPlayer().sendMessage(ChatColor.RED + "You do not have permission for this command!");
 			return;
@@ -179,7 +180,7 @@ public class Party extends PlayerCommand {
 				if (mcp.getConversation() != null) {
 					String tellChat = playerApiService.getMineverseChatPlayer(mcp.getConversation()).getName();
 					mcp.setConversation(null);
-					for (VentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
+					for (IVentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
 						if (configService.isSpy(p)) {
 							p.getPlayer().sendMessage(mcp.getName() + " is no longer in a private conversation with " + tellChat + ".");
 						}
@@ -267,7 +268,7 @@ public class Party extends PlayerCommand {
 							partyformat = FormatUtils.FormatStringAll(plugin.getConfig().getString("partyformat")
 									.replace("{host}", playerApiService.getMineverseChatPlayer(mcp.getParty()).getName()).replace("{player}", mcp.getName())) + msg;
 						}
-						for (VentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
+						for (IVentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
 							if ((p.getParty().equals(mcp.getParty()) || configService.isSpy(p))) {
 								p.getPlayer().sendMessage(partyformat);
 							}

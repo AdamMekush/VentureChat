@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
@@ -38,7 +39,7 @@ public class Ignore extends PlayerCommand {
 			plugin.getServer().getConsoleSender().sendMessage(LocalizedMessage.COMMAND_MUST_BE_RUN_BY_PLAYER.toString());
 			return;
 		}
-		VentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer((Player) sender);
+		IVentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer((Player) sender);
 		if (args.length == 0) {
 			mcp.getPlayer().sendMessage(LocalizedMessage.COMMAND_INVALID_ARGUMENTS_IGNORE.toString());
 			return;
@@ -79,7 +80,7 @@ public class Ignore extends PlayerCommand {
 			return;
 		}
 
-		VentureChatPlayer player = playerApiService.getOnlineMineverseChatPlayer(args[0]);
+		IVentureChatPlayer player = playerApiService.getOnlineMineverseChatPlayer(args[0]);
 		if (player == null) {
 			mcp.getPlayer().sendMessage(LocalizedMessage.PLAYER_OFFLINE.toString().replace("{args}", args[0]));
 			return;

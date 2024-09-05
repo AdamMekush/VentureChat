@@ -2,6 +2,7 @@ package venture.Aust1n46.chat.service;
 
 import com.google.inject.Singleton;
 import org.bukkit.entity.Player;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.model.VentureChatPlayer;
 
 import java.util.*;
@@ -16,7 +17,7 @@ import java.util.*;
 public class PlayerApiService {
 	private final HashMap<UUID, VentureChatPlayer> playerMap = new HashMap<>();
 	private final HashMap<String, UUID> namesMap = new HashMap<>();
-	private final HashMap<UUID, VentureChatPlayer> onlinePlayerMap = new HashMap<>();
+	private final HashMap<UUID, IVentureChatPlayer> onlinePlayerMap = new HashMap<>();
 	private final List<String> networkPlayerNames = new ArrayList<>();
 
 	public void addNameToMap(VentureChatPlayer mcp) {
@@ -47,7 +48,7 @@ public class PlayerApiService {
 		onlinePlayerMap.put(mcp.getUuid(), mcp);
 	}
 
-	public void removeMineverseChatOnlinePlayerToMap(VentureChatPlayer mcp) {
+	public void removeMineverseChatOnlinePlayerToMap(IVentureChatPlayer mcp) {
 		onlinePlayerMap.remove(mcp.getUuid());
 	}
 
@@ -55,7 +56,7 @@ public class PlayerApiService {
 		onlinePlayerMap.clear();
 	}
 
-	public Collection<VentureChatPlayer> getOnlineMineverseChatPlayers() {
+	public Collection<IVentureChatPlayer> getOnlineMineverseChatPlayers() {
 		return onlinePlayerMap.values();
 	}
 
@@ -96,7 +97,7 @@ public class PlayerApiService {
 	 * @param player {@link Player} object.
 	 * @return {@link VentureChatPlayer}
 	 */
-	public VentureChatPlayer getOnlineMineverseChatPlayer(final Player player) {
+	public IVentureChatPlayer getOnlineMineverseChatPlayer(final Player player) {
 		return getOnlineMineverseChatPlayer(player.getUniqueId());
 	}
 
@@ -107,7 +108,7 @@ public class PlayerApiService {
 	 * @param uuid {@link UUID}.
 	 * @return {@link VentureChatPlayer}
 	 */
-	public VentureChatPlayer getOnlineMineverseChatPlayer(UUID uuid) {
+	public IVentureChatPlayer getOnlineMineverseChatPlayer(UUID uuid) {
 		return onlinePlayerMap.get(uuid);
 	}
 
@@ -118,7 +119,7 @@ public class PlayerApiService {
 	 * @param name {@link String}.
 	 * @return {@link VentureChatPlayer}
 	 */
-	public VentureChatPlayer getOnlineMineverseChatPlayer(String name) {
+	public IVentureChatPlayer getOnlineMineverseChatPlayer(String name) {
 		return getOnlineMineverseChatPlayer(namesMap.get(name));
 	}
 

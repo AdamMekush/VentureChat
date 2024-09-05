@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
@@ -47,7 +48,7 @@ public class Chwho extends UniversalCommand {
                 if (channel != null) {
                     if (channel.isPermissionRequired()) {
                         if (!sender.hasPermission(channel.getPermission())) {
-                            VentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(((Player) sender));
+                            IVentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(((Player) sender));
                             mcp.getListening().remove(channel.getName());
                             mcp.getPlayer().sendMessage(LocalizedMessage.CHANNEL_NO_PERMISSION_VIEW.toString());
                             return;
@@ -55,7 +56,7 @@ public class Chwho extends UniversalCommand {
                     }
 
                     if (channel.isBungeeEnabled() && sender instanceof Player) {
-                        VentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer((Player) sender);
+                        IVentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer((Player) sender);
                         ByteArrayOutputStream byteOutStream = new ByteArrayOutputStream();
                         DataOutputStream out = new DataOutputStream(byteOutStream);
                         try {
@@ -73,7 +74,7 @@ public class Chwho extends UniversalCommand {
 
                     PluginManager pluginManager = plugin.getServer().getPluginManager();
                     long linecount = LINE_LENGTH;
-                    for (VentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
+                    for (IVentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
                         if (p.getListening().contains(channel.getName())) {
                             if (sender instanceof Player) {
                                 if (!((Player) sender).canSee(p.getPlayer())) {

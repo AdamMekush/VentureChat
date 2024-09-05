@@ -7,6 +7,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import venture.Aust1n46.chat.api.events.VentureChatEvent;
 import venture.Aust1n46.chat.api.interfaces.IMuteContainer;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.ChatChannel;
@@ -72,7 +73,7 @@ public class PluginMessageController {
 		}, delayInTicks);
 	}
 
-	public void synchronize(VentureChatPlayer mcp, boolean changes) {
+	public void synchronize(IVentureChatPlayer mcp, boolean changes) {
 		// System.out.println("Sync started...");
 		ByteArrayOutputStream outstream = new ByteArrayOutputStream();
 		DataOutputStream out = new DataOutputStream(outstream);
@@ -180,7 +181,7 @@ public class PluginMessageController {
 					.filter(vcp -> configService.isListening(vcp, chatChannelName))
 					.filter(vcp -> vcp.isBungeeToggle() || playerApiService.getOnlineMineverseChatPlayer(senderName) == null)
 					.filter(vcp -> !configService.isIgnoreChatEnabled() || !vcp.getIgnores().contains(senderUUID))
-					.map(VentureChatPlayer::getPlayer)
+					.map(IVentureChatPlayer::getPlayer)
 					.collect(Collectors.toSet());
 				plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new Runnable() {
 					@Override
@@ -224,7 +225,7 @@ public class PluginMessageController {
 					String chatchannel = msgin.readUTF();
 					List<String> listening = new ArrayList<String>();
 					if (configService.isChannel(chatchannel)) {
-						for (VentureChatPlayer mcp : playerApiService.getOnlineMineverseChatPlayers()) {
+						for (IVentureChatPlayer mcp : playerApiService.getOnlineMineverseChatPlayers()) {
 							if (configService.isListening(mcp, chatchannel)) {
 								String entry = "&f" + mcp.getName();
 								if (mcp.getMutes().containsKey(chatchannel)) {
@@ -248,7 +249,7 @@ public class PluginMessageController {
 				if (identifier.equals("Receive")) {
 					String sender = msgin.readUTF();
 					String stringchannel = msgin.readUTF();
-					VentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(UUID.fromString(sender));
+					IVentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(UUID.fromString(sender));
 					ChatChannel chatchannel = configService.getChannel(stringchannel);
 					String playerList = "";
 					int size = msgin.readInt();
@@ -272,7 +273,7 @@ public class PluginMessageController {
 					plugin.getServer().getConsoleSender().sendMessage(FormatUtils.FormatStringAll("&8[&eVentureChat&8]&e - Received update..."));
 				}
 				String uuid = msgin.readUTF();
-				VentureChatPlayer p = playerApiService.getOnlineMineverseChatPlayer(UUID.fromString(uuid));
+				IVentureChatPlayer p = playerApiService.getOnlineMineverseChatPlayer(UUID.fromString(uuid));
 				if (p == null || p.isHasPlayed()) {
 					return;
 				}
@@ -341,7 +342,7 @@ public class PluginMessageController {
 				if (identifier.equals("Send")) {
 					String server = msgin.readUTF();
 					String receiver = msgin.readUTF();
-					VentureChatPlayer p = playerApiService.getOnlineMineverseChatPlayer(receiver);
+					IVentureChatPlayer p = playerApiService.getOnlineMineverseChatPlayer(receiver);
 					UUID sender = UUID.fromString(msgin.readUTF());
 					if (!plugin.getConfig().getBoolean("bungeecordmessaging", true) || p == null || !p.isOnline()) {
 						out.writeUTF("Ignore");
@@ -373,14 +374,14 @@ public class PluginMessageController {
 				if (identifier.equals("Offline")) {
 					String receiver = msgin.readUTF();
 					UUID sender = UUID.fromString(msgin.readUTF());
-					VentureChatPlayer p = playerApiService.getOnlineMineverseChatPlayer(sender);
+					IVentureChatPlayer p = playerApiService.getOnlineMineverseChatPlayer(sender);
 					p.getPlayer().sendMessage(LocalizedMessage.PLAYER_OFFLINE.toString().replace("{args}", receiver));
 				}
 				if (identifier.equals("Echo")) {
 					UUID receiver = UUID.fromString(msgin.readUTF());
 					String receiverName = msgin.readUTF();
 					UUID sender = UUID.fromString(msgin.readUTF());
-					VentureChatPlayer p = playerApiService.getOnlineMineverseChatPlayer(sender);
+					IVentureChatPlayer p = playerApiService.getOnlineMineverseChatPlayer(sender);
 
 					if (p.getIgnores().contains(receiver)) {
 						p.getPlayer().sendMessage(LocalizedMessage.IGNORE_PLAYER_OFF.toString().replace("{player}", receiverName));
@@ -396,7 +397,7 @@ public class PluginMessageController {
 				if (identifier.equals("Bypass")) {
 					String receiver = msgin.readUTF();
 					UUID sender = UUID.fromString(msgin.readUTF());
-					VentureChatPlayer p = playerApiService.getOnlineMineverseChatPlayer(sender);
+					IVentureChatPlayer p = playerApiService.getOnlineMineverseChatPlayer(sender);
 					p.getPlayer().sendMessage(LocalizedMessage.IGNORE_PLAYER_CANT.toString().replace("{player}", receiver));
 				}
 			}
@@ -410,7 +411,7 @@ public class PluginMessageController {
 					String channelName = msgin.readUTF();
 					long time = msgin.readLong();
 					String reason = msgin.readUTF();
-					VentureChatPlayer playerToMuteMCP = playerApiService.getOnlineMineverseChatPlayer(playerToMute);
+					IVentureChatPlayer playerToMuteMCP = playerApiService.getOnlineMineverseChatPlayer(playerToMute);
 					if (playerToMuteMCP == null) {
 						out.writeUTF("Mute");
 						out.writeUTF("Offline");
@@ -489,7 +490,7 @@ public class PluginMessageController {
 										.replace("{channel_color}", chatChannelObj.getColor()).replace("{channel_name}", chatChannelObj.getName()).replace("{time}", timeString));
 							} else {
 								UUID sender = UUID.fromString(senderIdentifier);
-								VentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(sender);
+								IVentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(sender);
 								senderMCP.getPlayer().sendMessage(LocalizedMessage.MUTE_PLAYER_SENDER_TIME.toString().replace("{player}", playerToMute)
 										.replace("{channel_color}", chatChannelObj.getColor()).replace("{channel_name}", chatChannelObj.getName()).replace("{time}", timeString));
 							}
@@ -501,7 +502,7 @@ public class PluginMessageController {
 												.replace("{time}", timeString).replace("{reason}", reason));
 							} else {
 								UUID sender = UUID.fromString(senderIdentifier);
-								VentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(sender);
+								IVentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(sender);
 								senderMCP.getPlayer()
 										.sendMessage(LocalizedMessage.MUTE_PLAYER_SENDER_TIME_REASON.toString().replace("{player}", playerToMute)
 												.replace("{channel_color}", chatChannelObj.getColor()).replace("{channel_name}", chatChannelObj.getName())
@@ -515,7 +516,7 @@ public class PluginMessageController {
 										.replace("{channel_color}", chatChannelObj.getColor()).replace("{channel_name}", chatChannelObj.getName()));
 							} else {
 								UUID sender = UUID.fromString(senderIdentifier);
-								VentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(sender);
+								IVentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(sender);
 								senderMCP.getPlayer().sendMessage(LocalizedMessage.MUTE_PLAYER_SENDER.toString().replace("{player}", playerToMute)
 										.replace("{channel_color}", chatChannelObj.getColor()).replace("{channel_name}", chatChannelObj.getName()));
 							}
@@ -525,7 +526,7 @@ public class PluginMessageController {
 										.replace("{channel_color}", chatChannelObj.getColor()).replace("{channel_name}", chatChannelObj.getName()).replace("{reason}", reason));
 							} else {
 								UUID sender = UUID.fromString(senderIdentifier);
-								VentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(sender);
+								IVentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(sender);
 								senderMCP.getPlayer().sendMessage(LocalizedMessage.MUTE_PLAYER_SENDER_REASON.toString().replace("{player}", playerToMute)
 										.replace("{channel_color}", chatChannelObj.getColor()).replace("{channel_name}", chatChannelObj.getName()).replace("{reason}", reason));
 							}
@@ -541,7 +542,7 @@ public class PluginMessageController {
 						return;
 					}
 					UUID sender = UUID.fromString(senderIdentifier);
-					VentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(sender);
+					IVentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(sender);
 					senderMCP.getPlayer().sendMessage(LocalizedMessage.PLAYER_OFFLINE.toString().replace("{args}", playerToMute));
 					return;
 				}
@@ -559,7 +560,7 @@ public class PluginMessageController {
 						return;
 					}
 					UUID sender = UUID.fromString(senderIdentifier);
-					VentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(sender);
+					IVentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(sender);
 					senderMCP.getPlayer().sendMessage(LocalizedMessage.PLAYER_ALREADY_MUTED.toString().replace("{player}", playerToMute)
 							.replace("{channel_color}", chatChannelObj.getColor()).replace("{channel_name}", chatChannelObj.getName()));
 					return;
@@ -573,7 +574,7 @@ public class PluginMessageController {
 					String temporaryDataInstanceUUIDString = msgin.readUTF();
 					String playerToUnmute = msgin.readUTF();
 					String channelName = msgin.readUTF();
-					VentureChatPlayer playerToUnmuteMCP = playerApiService.getOnlineMineverseChatPlayer(playerToUnmute);
+					IVentureChatPlayer playerToUnmuteMCP = playerApiService.getOnlineMineverseChatPlayer(playerToUnmute);
 					if (playerToUnmuteMCP == null) {
 						out.writeUTF("Unmute");
 						out.writeUTF("Offline");
@@ -624,7 +625,7 @@ public class PluginMessageController {
 								.replace("{channel_color}", chatChannelObj.getColor()).replace("{channel_name}", chatChannelObj.getName()));
 					} else {
 						UUID sender = UUID.fromString(senderIdentifier);
-						VentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(sender);
+						IVentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(sender);
 						senderMCP.getPlayer().sendMessage(LocalizedMessage.UNMUTE_PLAYER_SENDER.toString().replace("{player}", playerToUnmute)
 								.replace("{channel_color}", chatChannelObj.getColor()).replace("{channel_name}", chatChannelObj.getName()));
 					}
@@ -638,7 +639,7 @@ public class PluginMessageController {
 						return;
 					}
 					UUID sender = UUID.fromString(senderIdentifier);
-					VentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(sender);
+					IVentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(sender);
 					senderMCP.getPlayer().sendMessage(LocalizedMessage.PLAYER_OFFLINE.toString().replace("{args}", playerToUnmute));
 					return;
 				}
@@ -656,7 +657,7 @@ public class PluginMessageController {
 						return;
 					}
 					UUID sender = UUID.fromString(senderIdentifier);
-					VentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(sender);
+					IVentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(sender);
 					senderMCP.getPlayer().sendMessage(LocalizedMessage.PLAYER_NOT_MUTED.toString().replace("{player}", playerToUnmute)
 							.replace("{channel_color}", chatChannelObj.getColor()).replace("{channel_name}", chatChannelObj.getName()));
 					return;
@@ -667,7 +668,7 @@ public class PluginMessageController {
 				if (identifier.equals("Send")) {
 					String server = msgin.readUTF();
 					String receiver = msgin.readUTF();
-					VentureChatPlayer p = playerApiService.getOnlineMineverseChatPlayer(receiver);
+					IVentureChatPlayer p = playerApiService.getOnlineMineverseChatPlayer(receiver);
 					UUID sender = UUID.fromString(msgin.readUTF());
 					String sName = msgin.readUTF();
 					String send = msgin.readUTF();
@@ -728,27 +729,27 @@ public class PluginMessageController {
 				if (identifier.equals("Offline")) {
 					String receiver = msgin.readUTF();
 					UUID sender = UUID.fromString(msgin.readUTF());
-					VentureChatPlayer p = playerApiService.getOnlineMineverseChatPlayer(sender);
+					IVentureChatPlayer p = playerApiService.getOnlineMineverseChatPlayer(sender);
 					p.getPlayer().sendMessage(LocalizedMessage.PLAYER_OFFLINE.toString().replace("{args}", receiver));
 					p.setReplyPlayer(null);
 				}
 				if (identifier.equals("Ignore")) {
 					String receiver = msgin.readUTF();
 					UUID sender = UUID.fromString(msgin.readUTF());
-					VentureChatPlayer p = playerApiService.getOnlineMineverseChatPlayer(sender);
+					IVentureChatPlayer p = playerApiService.getOnlineMineverseChatPlayer(sender);
 					p.getPlayer().sendMessage(LocalizedMessage.IGNORING_MESSAGE.toString().replace("{player}", receiver));
 				}
 				if (identifier.equals("Blocked")) {
 					String receiver = msgin.readUTF();
 					UUID sender = UUID.fromString(msgin.readUTF());
-					VentureChatPlayer p = playerApiService.getOnlineMineverseChatPlayer(sender);
+					IVentureChatPlayer p = playerApiService.getOnlineMineverseChatPlayer(sender);
 					p.getPlayer().sendMessage(LocalizedMessage.BLOCKING_MESSAGE.toString().replace("{player}", receiver));
 				}
 				if (identifier.equals("Echo")) {
 					String receiverName = msgin.readUTF();
 					UUID receiverUUID = UUID.fromString(msgin.readUTF());
 					UUID senderUUID = UUID.fromString(msgin.readUTF());
-					VentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(senderUUID);
+					IVentureChatPlayer senderMCP = playerApiService.getOnlineMineverseChatPlayer(senderUUID);
 					String echo = msgin.readUTF();
 					if (playerApiService.getMineverseChatPlayer(receiverUUID) == null) {
 //						VentureChatPlayer receiverMCP = new VentureChatPlayer(receiverUUID, receiverName, configService.getDefaultChannel());
@@ -765,7 +766,7 @@ public class PluginMessageController {
 					String senderName = msgin.readUTF();
 					String spy = msgin.readUTF();
 					if (!spy.startsWith("VentureChat:NoSpy")) {
-						for (VentureChatPlayer pl : playerApiService.getOnlineMineverseChatPlayers()) {
+						for (IVentureChatPlayer pl : playerApiService.getOnlineMineverseChatPlayers()) {
 							if (configService.isSpy(pl) && !pl.getName().equals(senderName) && !pl.getName().equals(receiverName)) {
 								pl.getPlayer().sendMessage(spy);
 							}

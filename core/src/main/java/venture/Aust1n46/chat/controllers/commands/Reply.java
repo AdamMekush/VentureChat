@@ -3,6 +3,7 @@ package venture.Aust1n46.chat.controllers.commands;
 import com.google.inject.Inject;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
@@ -39,7 +40,7 @@ public class Reply extends PlayerCommand {
 			plugin.getServer().getConsoleSender().sendMessage(LocalizedMessage.COMMAND_MUST_BE_RUN_BY_PLAYER.toString());
 			return;
 		}
-		VentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(sender);
+		IVentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(sender);
 		if (args.length > 0) {
 			if (mcp.getReplyPlayer() != null) {
 				if (plugin.getConfig().getBoolean("bungeecordmessaging", true)) {
@@ -47,7 +48,7 @@ public class Reply extends PlayerCommand {
 					return;
 				}
 
-				VentureChatPlayer player = playerApiService.getOnlineMineverseChatPlayer(mcp.getReplyPlayer());
+				IVentureChatPlayer player = playerApiService.getOnlineMineverseChatPlayer(mcp.getReplyPlayer());
 				if (player == null) {
 					mcp.getPlayer().sendMessage(LocalizedMessage.NO_PLAYER_TO_REPLY_TO.toString());
 					return;
@@ -96,7 +97,7 @@ public class Reply extends PlayerCommand {
 					spy = FormatUtils.FormatStringAll(PlaceholderAPI.setBracketPlaceholders(player.getPlayer(), spy.replaceAll("receiver_", ""))) + msg;
 
 					if (!mcp.getPlayer().hasPermission("venturechat.spy.override")) {
-						for (VentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
+						for (IVentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
 							if (p.getName().equals(mcp.getName()) || p.getName().equals(player.getName())) {
 								continue;
 							}
@@ -120,7 +121,7 @@ public class Reply extends PlayerCommand {
 		mcp.getPlayer().sendMessage(LocalizedMessage.COMMAND_INVALID_ARGUMENTS.toString().replace("{command}", "/reply").replace("{args}", "[message]"));
 	}
 
-	private void sendBungeeCordReply(VentureChatPlayer mcp, String[] args) {
+	private void sendBungeeCordReply(IVentureChatPlayer mcp, String[] args) {
 		ByteArrayOutputStream byteOutStream = new ByteArrayOutputStream();
 		DataOutputStream out = new DataOutputStream(byteOutStream);
 		StringBuilder msgBuilder = new StringBuilder();

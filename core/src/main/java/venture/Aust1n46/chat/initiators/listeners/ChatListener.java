@@ -70,12 +70,12 @@ public class ChatListener implements Listener {
 		});
 	}
 
-	private void processPrivateMessageConversation(final VentureChatPlayer ventureChatPlayer, final String chat) {
-		VentureChatPlayer tp = playerApiService.getMineverseChatPlayer(ventureChatPlayer.getConversation());
+	private void processPrivateMessageConversation(final IVentureChatPlayer ventureChatPlayer, final String chat) {
+		IVentureChatPlayer tp = playerApiService.getMineverseChatPlayer(ventureChatPlayer.getConversation());
 		if (!tp.isOnline()) {
 			ventureChatPlayer.getPlayer().sendMessage(ChatColor.RED + tp.getName() + " is not available.");
 			if (!ventureChatPlayer.getPlayer().hasPermission("venturechat.spy.override")) {
-				for (VentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
+				for (IVentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
 					if (p.getName().equals(ventureChatPlayer.getName())) {
 						continue;
 					}
@@ -125,7 +125,7 @@ public class ChatListener implements Listener {
 			spy = FormatUtils.FormatStringAll(PlaceholderAPI.setBracketPlaceholders(tp.getPlayer(), spy.replaceAll("receiver_", ""))) + filtered;
 
 			if (!ventureChatPlayer.getPlayer().hasPermission("venturechat.spy.override")) {
-				for (VentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
+				for (IVentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
 					if (p.getName().equals(ventureChatPlayer.getName()) || p.getName().equals(tp.getName())) {
 						continue;
 					}
@@ -148,10 +148,10 @@ public class ChatListener implements Listener {
 		}
 	}
 
-	private void processPartyChat(final VentureChatPlayer ventureChatPlayer, final String chat) {
+	private void processPartyChat(final IVentureChatPlayer ventureChatPlayer, final String chat) {
 		if (ventureChatPlayer.getParty() != null) {
 			String partyformat = "";
-			for (VentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
+			for (IVentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
 				if ((p.getParty() != null && p.getParty().toString().equals(ventureChatPlayer.getParty().toString()) || configService.isSpy(p))) {
 					String filtered = chat;
 					if (ventureChatPlayer.isFilterEnabled()) {
@@ -220,7 +220,7 @@ public class ChatListener implements Listener {
 	private void handleTrueAsyncPlayerChatEvent(final AsyncPlayerChatEvent event) {
 		String chat = event.getMessage();
 		String format;
-		VentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(event.getPlayer());
+		IVentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(event.getPlayer());
 		IChatChannel eventChannel = mcp.getCurrentChannel();
 		if (mcp.isEditing()) {
 			mcp.getPlayer().sendMessage(FormatUtils.FormatStringAll(chat));
@@ -338,7 +338,7 @@ public class ChatListener implements Listener {
 		PluginManager pluginManager = plugin.getServer().getPluginManager();
 		Set<Player> recipients = event.getRecipients();
 		int recipientCount = recipients.size(); // Don't count vanished players
-		for (VentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
+		for (IVentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
 			if (p.getPlayer() != mcp.getPlayer()) {
 				if (!configService.isListening(p, eventChannel.getName())) {
 					recipients.remove(p.getPlayer());

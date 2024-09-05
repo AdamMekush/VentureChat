@@ -18,6 +18,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.server.ServerCommandEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
@@ -60,9 +61,9 @@ public class PreProcessCommandListener implements CommandExecutor, Listener {
 		}
 		ConfigurationSection cs = plugin.getConfig().getConfigurationSection("commandspy");
 		Boolean wec = cs.getBoolean("worldeditcommands", true);
-		VentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(event.getPlayer());
+		IVentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(event.getPlayer());
 		if (!mcp.getPlayer().hasPermission("venturechat.commandspy.override")) {
-			for (VentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
+			for (IVentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
 				if (configService.isCommandSpy(p)) {
 					if (wec) {
 						p.getPlayer().sendMessage(FormatUtils.FormatStringAll(cs.getString("format").replace("{player}", mcp.getName()).replace("{command}", event.getMessage())));
@@ -155,7 +156,7 @@ public class PreProcessCommandListener implements CommandExecutor, Listener {
 						mcp.getPlayer().sendMessage(
 								LocalizedMessage.SET_CHANNEL.toString().replace("{channel_color}", channel.getColor() + "").replace("{channel_name}", channel.getName()));
 						if (mcp.getConversation() != null) {
-							for (VentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
+							for (IVentureChatPlayer p : playerApiService.getOnlineMineverseChatPlayers()) {
 								if (configService.isSpy(p)) {
 									p.getPlayer().sendMessage(LocalizedMessage.EXIT_PRIVATE_CONVERSATION_SPY.toString().replace("{player_sender}", mcp.getName())
 											.replace("{player_receiver}", playerApiService.getMineverseChatPlayer(mcp.getConversation()).getName()));
@@ -206,7 +207,7 @@ public class PreProcessCommandListener implements CommandExecutor, Listener {
 			plugin.getServer().getConsoleSender().sendMessage(ChatColor.RED + "This command must be run by a player.");
 			return true;
 		}
-		VentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer((Player) sender);
+		IVentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer((Player) sender);
 		for (ChatChannel channel : configService.getChatChannels()) {
 			if (command.getName().toLowerCase().equals(channel.getAlias())) {
 				if (args.length == 0) {
@@ -242,7 +243,7 @@ public class PreProcessCommandListener implements CommandExecutor, Listener {
 		if (item == null) {
 			return;
 		}
-		VentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer((Player) e.getWhoClicked());
+		IVentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer((Player) e.getWhoClicked());
 		String playerName = e.getView().getTitle().replace(" GUI", "").replace("VentureChat: ", "");
 		VentureChatPlayer target = playerApiService.getMineverseChatPlayer(playerName);
 		ItemStack skull = e.getInventory().getItem(0);

@@ -12,6 +12,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.json.simple.JSONObject;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.model.*;
 import venture.Aust1n46.chat.utilities.FormatUtils;
@@ -51,12 +52,12 @@ public class FormatService {
 	 * Converts a message to Minecraft JSON formatting while applying the
 	 * {@link JsonFormat} from the config.
 	 *
-	 * @param sender {@link VentureChatPlayer} wrapper of the message sender.
+	 * @param sender {@link IVentureChatPlayer} wrapper of the message sender.
 	 * @param format The format section of the message.
 	 * @param chat   The chat section of the message.
 	 * @return {@link String}
 	 */
-	public String convertToJson(VentureChatPlayer sender, String format, String chat) {
+	public String convertToJson(IVentureChatPlayer sender, String format, String chat) {
 		JsonFormat JSONformat = configService.getJsonFormat(sender.getJsonFormat());
 		String c = escapeJsonChars(chat);
 		String json = "[\"\",{\"text\":\"\",\"extra\":[";
@@ -86,7 +87,7 @@ public class FormatService {
 	 * @param icp
 	 * @return {@link String}
 	 */
-	private String convertPlaceholders(String s, JsonFormat format, VentureChatPlayer icp) {
+	private String convertPlaceholders(String s, JsonFormat format, IVentureChatPlayer icp) {
 		String remaining = s;
 		String temp = "";
 		int indexStart = -1;
@@ -662,12 +663,12 @@ public class FormatService {
 	}
 
 	public void broadcastToServer(String message) {
-		for (VentureChatPlayer mcp : playerApiService.getOnlineMineverseChatPlayers()) {
+		for (IVentureChatPlayer mcp : playerApiService.getOnlineMineverseChatPlayers()) {
 			mcp.getPlayer().sendMessage(message);
 		}
 	}
 
-	public void playMessageSound(VentureChatPlayer mcp) {
+	public void playMessageSound(IVentureChatPlayer mcp) {
 		Player player = mcp.getPlayer();
 		String soundName = plugin.getConfig().getString("message_sound", DEFAULT_MESSAGE_SOUND);
 		if (!soundName.equalsIgnoreCase("None")) {

@@ -3,6 +3,7 @@ package venture.Aust1n46.chat.controllers.commands;
 import com.google.inject.Inject;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.controllers.SpigotFlatFileController;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
@@ -71,7 +72,7 @@ public class Chatreload extends UniversalCommand {
 			}
 
 			plugin.getServer().getConsoleSender().sendMessage(FormatUtils.FormatStringAll("&8[&eVentureChat&8]&e - Config reloaded"));
-			for (VentureChatPlayer player : playerApiService.getOnlineMineverseChatPlayers()) {
+			for (IVentureChatPlayer player : playerApiService.getOnlineMineverseChatPlayers()) {
 				if (player.getPlayer().hasPermission("venturechat.reload")) {
 					player.getPlayer().sendMessage(LocalizedMessage.CONFIG_RELOADED.toString());
 				}
