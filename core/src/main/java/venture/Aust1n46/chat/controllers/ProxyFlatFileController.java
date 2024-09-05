@@ -1,18 +1,6 @@
 package venture.Aust1n46.chat.controllers;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.StringTokenizer;
-import java.util.UUID;
-
 import com.google.inject.Inject;
-
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
@@ -21,6 +9,13 @@ import venture.Aust1n46.chat.model.SynchronizedVentureChatPlayer;
 import venture.Aust1n46.chat.model.VentureChatProxySource;
 import venture.Aust1n46.chat.service.ProxyPlayerApiService;
 import venture.Aust1n46.chat.service.ProxyUuidService;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 
 /**
  * Class for reading and writing proxy player data.

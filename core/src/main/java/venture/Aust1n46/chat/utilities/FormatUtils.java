@@ -1,12 +1,11 @@
 package venture.Aust1n46.chat.utilities;
 
+import org.bukkit.ChatColor;
+import venture.Aust1n46.chat.localization.LocalizedMessage;
+
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.bukkit.ChatColor;
-
-import venture.Aust1n46.chat.localization.LocalizedMessage;
 
 public class FormatUtils {
 	public static final char BUKKIT_COLOR_CODE_PREFIX_CHAR = '\u00A7';

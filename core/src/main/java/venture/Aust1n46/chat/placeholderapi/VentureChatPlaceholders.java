@@ -1,15 +1,12 @@
 package venture.Aust1n46.chat.placeholderapi;
 
-import org.apache.commons.lang.StringUtils;
-import org.bukkit.entity.Player;
-
 import com.google.inject.Inject;
-
 import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.entity.Player;
 import venture.Aust1n46.chat.api.interfaces.IChatChannel;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
-import venture.Aust1n46.chat.model.ChatChannel;
 import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.service.PlayerApiService;
 

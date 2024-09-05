@@ -1,13 +1,11 @@
 package venture.Aust1n46.chat.initiators.listeners;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
-
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-
 import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.service.PlayerApiService;
 import venture.Aust1n46.chat.utilities.FormatUtils;

@@ -1,12 +1,8 @@
 package venture.Aust1n46.chat.controllers.commands;
 
-import static venture.Aust1n46.chat.utilities.FormatUtils.LINE_LENGTH;
-
+import com.google.inject.Inject;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import com.google.inject.Inject;
-
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.model.PlayerCommand;
 import venture.Aust1n46.chat.model.VentureChatPlayer;
@@ -14,6 +10,8 @@ import venture.Aust1n46.chat.service.ConfigService;
 import venture.Aust1n46.chat.service.FormatService;
 import venture.Aust1n46.chat.service.PlayerApiService;
 import venture.Aust1n46.chat.utilities.FormatUtils;
+
+import static venture.Aust1n46.chat.utilities.FormatUtils.LINE_LENGTH;
 
 public class Party extends PlayerCommand {
 	@Inject

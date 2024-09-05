@@ -1,10 +1,6 @@
 package venture.Aust1n46.chat.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import venture.Aust1n46.chat.api.interfaces.IMuteContainer;
 
 @Getter

@@ -1,12 +1,8 @@
 package venture.Aust1n46.chat.controllers.commands;
 
-import java.util.UUID;
-
+import com.google.inject.Inject;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import com.google.inject.Inject;
-
 import venture.Aust1n46.chat.controllers.SpigotFlatFileController;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
@@ -16,6 +12,8 @@ import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.service.ConfigService;
 import venture.Aust1n46.chat.service.PlayerApiService;
 import venture.Aust1n46.chat.utilities.FormatUtils;
+
+import java.util.UUID;
 
 public class Chatreload extends UniversalCommand {
 	@Inject

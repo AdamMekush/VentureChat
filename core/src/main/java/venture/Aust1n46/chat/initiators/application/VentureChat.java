@@ -1,37 +1,31 @@
 package venture.Aust1n46.chat.initiators.application;
 
-import java.io.File;
-
+import com.comphenix.protocol.ProtocolLibrary;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.Singleton;
+import lombok.Getter;
+import net.milkbowl.vault.permission.Permission;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.bukkit.scheduler.BukkitScheduler;
-
-import com.comphenix.protocol.ProtocolLibrary;
-import com.google.inject.Guice;
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.inject.Singleton;
-
-import lombok.Getter;
-import net.milkbowl.vault.permission.Permission;
 import venture.Aust1n46.chat.controllers.CommandController;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.controllers.SpigotFlatFileController;
 import venture.Aust1n46.chat.guice.VentureChatPluginModule;
-import venture.Aust1n46.chat.initiators.listeners.ChatListener;
-import venture.Aust1n46.chat.initiators.listeners.LoginListener;
-import venture.Aust1n46.chat.initiators.listeners.PacketListenerLegacyChat;
-import venture.Aust1n46.chat.initiators.listeners.PreProcessCommandListener;
-import venture.Aust1n46.chat.initiators.listeners.SignListener;
+import venture.Aust1n46.chat.initiators.listeners.*;
 import venture.Aust1n46.chat.initiators.schedulers.UnmuteScheduler;
 import venture.Aust1n46.chat.localization.Localization;
 import venture.Aust1n46.chat.placeholderapi.VentureChatPlaceholders;
 import venture.Aust1n46.chat.service.PlayerApiService;
 import venture.Aust1n46.chat.utilities.FormatUtils;
 import venture.Aust1n46.chat.xcut.VersionService;
+
+import java.io.File;
 
 /**
  * VentureChat Minecraft plugin for servers running Spigot or Paper software.

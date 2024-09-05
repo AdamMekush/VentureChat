@@ -1,10 +1,12 @@
 package venture.Aust1n46.chat.initiators.listeners;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.util.ArrayList;
-import java.util.Set;
-
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.massivecraft.factions.entity.MPlayer;
+import com.palmergames.bukkit.towny.TownyUniverse;
+import com.palmergames.bukkit.towny.object.Resident;
+import me.clip.placeholderapi.PlaceholderAPI;
+import net.essentialsx.api.v2.services.discord.DiscordService;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -13,16 +15,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.PluginManager;
-
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import com.massivecraft.factions.entity.MPlayer;
-import com.palmergames.bukkit.towny.TownyUniverse;
-import com.palmergames.bukkit.towny.object.Resident;
-
-import me.clip.placeholderapi.PlaceholderAPI;
-import net.essentialsx.api.v2.services.discord.DiscordService;
-//import venture.Aust1n46.chat.api.events.VentureChatEvent;
 import venture.Aust1n46.chat.api.events.VentureChatEvent;
 import venture.Aust1n46.chat.api.interfaces.IChatChannel;
 import venture.Aust1n46.chat.api.interfaces.IMuteContainer;
@@ -37,6 +29,11 @@ import venture.Aust1n46.chat.service.FormatService;
 import venture.Aust1n46.chat.service.PlayerApiService;
 import venture.Aust1n46.chat.service.VentureChatDatabaseService;
 import venture.Aust1n46.chat.utilities.FormatUtils;
+
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.util.ArrayList;
+import java.util.Set;
 
 @SuppressWarnings("deprecation")
 @Singleton

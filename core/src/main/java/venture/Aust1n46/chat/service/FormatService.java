@@ -1,10 +1,21 @@
 package venture.Aust1n46.chat.service;
 
-import static venture.Aust1n46.chat.utilities.FormatUtils.BUKKIT_COLOR_CODE_PREFIX;
-import static venture.Aust1n46.chat.utilities.FormatUtils.BUKKIT_COLOR_CODE_PREFIX_CHAR;
-import static venture.Aust1n46.chat.utilities.FormatUtils.BUKKIT_HEX_COLOR_CODE_PREFIX;
-import static venture.Aust1n46.chat.utilities.FormatUtils.DEFAULT_COLOR_CODE;
-import static venture.Aust1n46.chat.utilities.FormatUtils.HEX_COLOR_CODE_PREFIX;
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.WrappedChatComponent;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import me.clip.placeholderapi.PlaceholderAPI;
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.ChatColor;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
+import org.json.simple.JSONObject;
+import venture.Aust1n46.chat.initiators.application.VentureChat;
+import venture.Aust1n46.chat.model.*;
+import venture.Aust1n46.chat.utilities.FormatUtils;
+import venture.Aust1n46.chat.xcut.VersionService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,28 +25,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang.StringUtils;
-import org.bukkit.ChatColor;
-import org.bukkit.Sound;
-import org.bukkit.entity.Player;
-import org.json.simple.JSONObject;
-
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.WrappedChatComponent;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-
-import me.clip.placeholderapi.PlaceholderAPI;
-import venture.Aust1n46.chat.initiators.application.VentureChat;
-import venture.Aust1n46.chat.model.ClickAction;
-import venture.Aust1n46.chat.model.Filter;
-import venture.Aust1n46.chat.model.JsonAttribute;
-import venture.Aust1n46.chat.model.JsonFormat;
-import venture.Aust1n46.chat.model.VentureChatPlayer;
-import venture.Aust1n46.chat.utilities.FormatUtils;
-import venture.Aust1n46.chat.xcut.VersionService;
+import static venture.Aust1n46.chat.utilities.FormatUtils.*;
 
 /**
  * Class containing chat formatting methods.

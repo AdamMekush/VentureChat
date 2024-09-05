@@ -1,28 +1,15 @@
 package venture.Aust1n46.chat.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-
-import org.bukkit.ChatColor;
-import org.bukkit.configuration.ConfigurationSection;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import lombok.Getter;
+import org.bukkit.ChatColor;
+import org.bukkit.configuration.ConfigurationSection;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
-import venture.Aust1n46.chat.model.Alias;
-import venture.Aust1n46.chat.model.ChatChannel;
-import venture.Aust1n46.chat.model.ClickAction;
-import venture.Aust1n46.chat.model.Filter;
-import venture.Aust1n46.chat.model.GuiSlot;
-import venture.Aust1n46.chat.model.JsonAttribute;
-import venture.Aust1n46.chat.model.JsonFormat;
-import venture.Aust1n46.chat.model.VentureChatPlayer;
+import venture.Aust1n46.chat.model.*;
 import venture.Aust1n46.chat.utilities.FormatUtils;
+
+import java.util.*;
 
 @Singleton
 public class ConfigService {

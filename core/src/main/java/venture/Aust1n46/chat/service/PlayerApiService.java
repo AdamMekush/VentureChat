@@ -1,16 +1,10 @@
 package venture.Aust1n46.chat.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
-
-import org.bukkit.entity.Player;
-
 import com.google.inject.Singleton;
-
+import org.bukkit.entity.Player;
 import venture.Aust1n46.chat.model.VentureChatPlayer;
+
+import java.util.*;
 
 /**
  * API class for looking up wrapped {@link VentureChatPlayer} objects from

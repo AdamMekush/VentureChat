@@ -1,14 +1,11 @@
 package venture.Aust1n46.chat.controllers.commands;
 
+import com.google.inject.Inject;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import com.google.inject.Inject;
-
 import venture.Aust1n46.chat.api.interfaces.IMuteContainer;
 import venture.Aust1n46.chat.model.ChatChannel;
-import venture.Aust1n46.chat.model.MuteContainer;
 import venture.Aust1n46.chat.model.UniversalCommand;
 import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.service.ConfigService;

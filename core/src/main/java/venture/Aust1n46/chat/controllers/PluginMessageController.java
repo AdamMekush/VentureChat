@@ -1,23 +1,10 @@
 package venture.Aust1n46.chat.controllers;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import venture.Aust1n46.chat.api.events.VentureChatEvent;
 import venture.Aust1n46.chat.api.interfaces.IMuteContainer;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
@@ -30,6 +17,13 @@ import venture.Aust1n46.chat.service.FormatService;
 import venture.Aust1n46.chat.service.PlayerApiService;
 import venture.Aust1n46.chat.service.VentureChatDatabaseService;
 import venture.Aust1n46.chat.utilities.FormatUtils;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Singleton
 public class PluginMessageController {

@@ -1,8 +1,8 @@
 package venture.Aust1n46.chat.model;
 
-import java.util.List;
-
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 public class Alias {

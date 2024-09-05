@@ -1,12 +1,7 @@
 package venture.Aust1n46.chat.model;
 
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter

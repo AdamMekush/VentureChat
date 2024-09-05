@@ -1,64 +1,25 @@
 package venture.Aust1n46.chat.controllers;
 
-import java.io.File;
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-
-import venture.Aust1n46.chat.controllers.commands.Broadcast;
-import venture.Aust1n46.chat.controllers.commands.BungeeToggle;
-import venture.Aust1n46.chat.controllers.commands.Channel;
-import venture.Aust1n46.chat.controllers.commands.ChannelAlias;
-import venture.Aust1n46.chat.controllers.commands.Channelinfo;
-import venture.Aust1n46.chat.controllers.commands.Chatinfo;
-import venture.Aust1n46.chat.controllers.commands.Chatreload;
-import venture.Aust1n46.chat.controllers.commands.Chlist;
-import venture.Aust1n46.chat.controllers.commands.Chwho;
-import venture.Aust1n46.chat.controllers.commands.Clearchat;
-import venture.Aust1n46.chat.controllers.commands.Commandblock;
-import venture.Aust1n46.chat.controllers.commands.Commandspy;
-import venture.Aust1n46.chat.controllers.commands.Edit;
-import venture.Aust1n46.chat.controllers.commands.Filter;
-import venture.Aust1n46.chat.controllers.commands.Force;
-import venture.Aust1n46.chat.controllers.commands.Forceall;
-import venture.Aust1n46.chat.controllers.commands.Ignore;
-import venture.Aust1n46.chat.controllers.commands.Kickchannel;
-import venture.Aust1n46.chat.controllers.commands.Kickchannelall;
-import venture.Aust1n46.chat.controllers.commands.Leave;
-import venture.Aust1n46.chat.controllers.commands.Listen;
-import venture.Aust1n46.chat.controllers.commands.Me;
-import venture.Aust1n46.chat.controllers.commands.Message;
-import venture.Aust1n46.chat.controllers.commands.MessageToggle;
-import venture.Aust1n46.chat.controllers.commands.Mute;
-import venture.Aust1n46.chat.controllers.commands.Muteall;
-import venture.Aust1n46.chat.controllers.commands.Notifications;
-import venture.Aust1n46.chat.controllers.commands.Party;
-import venture.Aust1n46.chat.controllers.commands.RangedSpy;
-import venture.Aust1n46.chat.controllers.commands.Removemessage;
-import venture.Aust1n46.chat.controllers.commands.Reply;
-import venture.Aust1n46.chat.controllers.commands.Setchannel;
-import venture.Aust1n46.chat.controllers.commands.Setchannelall;
-import venture.Aust1n46.chat.controllers.commands.Spy;
-import venture.Aust1n46.chat.controllers.commands.Unmute;
-import venture.Aust1n46.chat.controllers.commands.Unmuteall;
-import venture.Aust1n46.chat.controllers.commands.VentureChatGui;
-import venture.Aust1n46.chat.controllers.commands.Venturechat;
+import venture.Aust1n46.chat.controllers.commands.*;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.model.ChatChannel;
 import venture.Aust1n46.chat.service.ConfigService;
 import venture.Aust1n46.chat.utilities.FormatUtils;
+
+import java.io.File;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 @Singleton
 public class CommandController {

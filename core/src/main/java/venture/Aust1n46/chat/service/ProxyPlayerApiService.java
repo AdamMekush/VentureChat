@@ -1,12 +1,11 @@
 package venture.Aust1n46.chat.service;
 
+import com.google.inject.Singleton;
+import venture.Aust1n46.chat.model.SynchronizedVentureChatPlayer;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.UUID;
-
-import com.google.inject.Singleton;
-
-import venture.Aust1n46.chat.model.SynchronizedVentureChatPlayer;
 
 @Singleton
 public class ProxyPlayerApiService {

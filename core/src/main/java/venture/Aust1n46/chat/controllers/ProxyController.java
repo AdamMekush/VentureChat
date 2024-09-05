@@ -1,20 +1,15 @@
 package venture.Aust1n46.chat.controllers;
 
+import com.google.inject.Inject;
+import venture.Aust1n46.chat.model.*;
+import venture.Aust1n46.chat.service.ProxyPlayerApiService;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import com.google.inject.Inject;
-
-import venture.Aust1n46.chat.model.MuteContainer;
-import venture.Aust1n46.chat.model.SynchronizedVentureChatPlayer;
-import venture.Aust1n46.chat.model.TemporaryDataInstance;
-import venture.Aust1n46.chat.model.VentureChatProxyServer;
-import venture.Aust1n46.chat.model.VentureChatProxySource;
-import venture.Aust1n46.chat.service.ProxyPlayerApiService;
 
 public class ProxyController {
 	public static String PLUGIN_MESSAGING_CHANNEL_NAMESPACE = "venturechat";

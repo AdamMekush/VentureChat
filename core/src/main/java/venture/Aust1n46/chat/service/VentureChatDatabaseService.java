@@ -1,20 +1,18 @@
 package venture.Aust1n46.chat.service;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import org.bukkit.configuration.ConfigurationSection;
+import venture.Aust1n46.chat.initiators.application.VentureChat;
+import venture.Aust1n46.chat.utilities.FormatUtils;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import org.bukkit.configuration.ConfigurationSection;
-
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-
-import venture.Aust1n46.chat.initiators.application.VentureChat;
-import venture.Aust1n46.chat.utilities.FormatUtils;
 
 /**
  * Initializes and handles writing to the chat logging database.

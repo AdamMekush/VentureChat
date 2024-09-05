@@ -1,7 +1,6 @@
 package venture.Aust1n46.chat.guice;
 
 import com.google.inject.AbstractModule;
-
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 
 public class VentureChatPluginModule extends AbstractModule {

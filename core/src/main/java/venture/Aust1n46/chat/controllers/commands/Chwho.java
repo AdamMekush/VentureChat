@@ -1,29 +1,27 @@
 package venture.Aust1n46.chat.controllers.commands;
 
-import static venture.Aust1n46.chat.utilities.FormatUtils.LINE_LENGTH;
-
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-
+import com.google.inject.Inject;
+import com.massivecraft.factions.entity.MPlayer;
+import com.palmergames.bukkit.towny.TownyUniverse;
+import com.palmergames.bukkit.towny.object.Resident;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
-
-import com.google.inject.Inject;
-import com.massivecraft.factions.entity.MPlayer;
-import com.palmergames.bukkit.towny.TownyUniverse;
-import com.palmergames.bukkit.towny.object.Resident;
-
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.ChatChannel;
-import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.model.UniversalCommand;
+import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.service.ConfigService;
 import venture.Aust1n46.chat.service.PlayerApiService;
+
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+
+import static venture.Aust1n46.chat.utilities.FormatUtils.LINE_LENGTH;
 
 public class Chwho extends UniversalCommand {
 	@Inject

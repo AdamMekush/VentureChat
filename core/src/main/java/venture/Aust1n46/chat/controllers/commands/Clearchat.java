@@ -1,13 +1,11 @@
 package venture.Aust1n46.chat.controllers.commands;
 
-import org.bukkit.command.CommandSender;
-
 import com.google.inject.Inject;
-
+import org.bukkit.command.CommandSender;
 import venture.Aust1n46.chat.localization.InternalMessage;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
-import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.model.UniversalCommand;
+import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.service.PlayerApiService;
 
 public class Clearchat extends UniversalCommand {

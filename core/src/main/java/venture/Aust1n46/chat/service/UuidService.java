@@ -1,12 +1,11 @@
 package venture.Aust1n46.chat.service;
 
-import java.util.UUID;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.utilities.FormatUtils;
+
+import java.util.UUID;
 
 @Singleton
 public class UuidService {

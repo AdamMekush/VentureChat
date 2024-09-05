@@ -2,7 +2,6 @@ package venture.Aust1n46.chat.model;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 
 public abstract class PlayerCommand extends PluginCommand {

@@ -1,11 +1,10 @@
 package venture.Aust1n46.chat.service;
 
-import java.util.UUID;
-
 import com.google.inject.Singleton;
-
 import venture.Aust1n46.chat.model.VentureChatProxySource;
 import venture.Aust1n46.chat.utilities.FormatUtils;
+
+import java.util.UUID;
 
 @Singleton
 public class ProxyUuidService {

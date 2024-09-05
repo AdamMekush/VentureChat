@@ -1,16 +1,8 @@
 package venture.Aust1n46.chat.initiators.application;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.nio.file.Files;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.config.ServerInfo;
@@ -33,6 +25,13 @@ import venture.Aust1n46.chat.model.VentureChatProxyServer;
 import venture.Aust1n46.chat.model.VentureChatProxySource;
 import venture.Aust1n46.chat.service.ProxyUuidService;
 import venture.Aust1n46.chat.utilities.FormatUtils;
+
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.nio.file.Files;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * VentureChat Minecraft plugin for BungeeCord.

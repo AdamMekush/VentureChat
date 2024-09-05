@@ -1,17 +1,13 @@
 package venture.Aust1n46.chat.initiators.listeners;
 
-import java.util.UUID;
-
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.controllers.SpigotFlatFileController;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
@@ -19,10 +15,12 @@ import venture.Aust1n46.chat.model.ChatChannel;
 import venture.Aust1n46.chat.model.JsonFormat;
 import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.service.ConfigService;
-import venture.Aust1n46.chat.service.UuidService;
 import venture.Aust1n46.chat.service.PlayerApiService;
+import venture.Aust1n46.chat.service.UuidService;
 import venture.Aust1n46.chat.utilities.FormatUtils;
 import venture.Aust1n46.chat.xcut.Logger;
+
+import java.util.UUID;
 
 /**
  * Manages player login and logout events.

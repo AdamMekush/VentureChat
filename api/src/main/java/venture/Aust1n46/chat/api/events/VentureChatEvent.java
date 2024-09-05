@@ -1,14 +1,13 @@
 package venture.Aust1n46.chat.api.events;
 
-import java.util.Set;
-
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-
-import lombok.Getter;
 import venture.Aust1n46.chat.api.interfaces.IChatChannel;
 import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
+
+import java.util.Set;
 
 /**
  * Event called when a message has been sent to a channel. This event can not be

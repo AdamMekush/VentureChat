@@ -1,10 +1,8 @@
 package venture.Aust1n46.chat.xcut;
 
-import org.slf4j.LoggerFactory;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
+import org.slf4j.LoggerFactory;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 
 @Singleton

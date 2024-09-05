@@ -1,9 +1,9 @@
 package venture.Aust1n46.chat.model;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.UUID;
-
-import lombok.Getter;
 
 public class TemporaryDataInstance {
 	private final UUID uuid;

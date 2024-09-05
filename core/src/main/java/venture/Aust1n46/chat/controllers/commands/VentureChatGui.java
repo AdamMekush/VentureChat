@@ -1,8 +1,7 @@
 package venture.Aust1n46.chat.controllers.commands;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.inject.Inject;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -10,10 +9,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-
-import com.google.inject.Inject;
-
-import me.clip.placeholderapi.PlaceholderAPI;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.ChatChannel;
@@ -24,6 +19,9 @@ import venture.Aust1n46.chat.service.ConfigService;
 import venture.Aust1n46.chat.service.PlayerApiService;
 import venture.Aust1n46.chat.utilities.FormatUtils;
 import venture.Aust1n46.chat.xcut.VersionService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class VentureChatGui extends PlayerCommand {
 	@Inject

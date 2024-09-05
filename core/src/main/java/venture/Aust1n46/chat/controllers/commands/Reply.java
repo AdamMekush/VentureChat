@@ -1,13 +1,8 @@
 package venture.Aust1n46.chat.controllers.commands;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-
-import org.bukkit.entity.Player;
-
 import com.google.inject.Inject;
-
 import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.entity.Player;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
@@ -17,6 +12,9 @@ import venture.Aust1n46.chat.service.ConfigService;
 import venture.Aust1n46.chat.service.FormatService;
 import venture.Aust1n46.chat.service.PlayerApiService;
 import venture.Aust1n46.chat.utilities.FormatUtils;
+
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 
 public class Reply extends PlayerCommand {
 	@Inject

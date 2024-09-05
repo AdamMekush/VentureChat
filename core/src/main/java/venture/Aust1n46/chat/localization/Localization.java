@@ -1,12 +1,11 @@
 package venture.Aust1n46.chat.localization;
 
-import java.io.File;
-
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.utilities.FormatUtils;
+
+import java.io.File;
 
 public class Localization {
 	private static final String VERSION = "2.22.4";

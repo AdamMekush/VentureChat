@@ -1,24 +1,13 @@
 package venture.Aust1n46.chat.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-
-import org.bukkit.entity.Player;
-
-import lombok.AccessLevel;
-import lombok.Builder;
+import lombok.*;
 import lombok.Builder.Default;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import org.bukkit.entity.Player;
 import venture.Aust1n46.chat.api.interfaces.IChatChannel;
 import venture.Aust1n46.chat.api.interfaces.IMuteContainer;
 import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
+
+import java.util.*;
 
 /**
  * Wrapper for {@link Player}

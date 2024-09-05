@@ -1,16 +1,14 @@
 package venture.Aust1n46.chat.controllers.commands;
 
-import java.util.List;
-
-import org.bukkit.command.CommandSender;
-
 import com.google.inject.Inject;
-
+import org.bukkit.command.CommandSender;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
-import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.model.UniversalCommand;
+import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.service.PlayerApiService;
+
+import java.util.List;
 
 public class Commandblock extends UniversalCommand {
 	@Inject

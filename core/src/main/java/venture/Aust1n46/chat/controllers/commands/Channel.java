@@ -1,10 +1,8 @@
 package venture.Aust1n46.chat.controllers.commands;
 
-import org.bukkit.entity.Player;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
+import org.bukkit.entity.Player;
 import venture.Aust1n46.chat.api.events.ChannelJoinEvent;
 import venture.Aust1n46.chat.api.interfaces.IChatChannel;
 import venture.Aust1n46.chat.controllers.PluginMessageController;

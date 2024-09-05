@@ -1,8 +1,7 @@
 package venture.Aust1n46.chat.model;
 
-import org.bukkit.Material;
-
 import lombok.Getter;
+import org.bukkit.Material;
 
 @Getter
 public class GuiSlot {

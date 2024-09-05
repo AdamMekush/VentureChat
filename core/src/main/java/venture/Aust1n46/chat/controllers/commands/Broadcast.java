@@ -1,11 +1,9 @@
 package venture.Aust1n46.chat.controllers.commands;
 
+import com.google.inject.Inject;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
-
-import com.google.inject.Inject;
-
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.UniversalCommand;

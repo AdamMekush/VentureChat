@@ -1,34 +1,27 @@
 package venture.Aust1n46.chat.controllers;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.StringTokenizer;
-import java.util.UUID;
-
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-
 import venture.Aust1n46.chat.api.interfaces.IMuteContainer;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.model.ChatChannel;
 import venture.Aust1n46.chat.model.MuteContainer;
 import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.service.ConfigService;
-import venture.Aust1n46.chat.service.UuidService;
 import venture.Aust1n46.chat.service.PlayerApiService;
+import venture.Aust1n46.chat.service.UuidService;
 import venture.Aust1n46.chat.utilities.FormatUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Class for reading and writing player data.
