@@ -12,7 +12,6 @@ import venture.Aust1n46.chat.api.interfaces.IChatMessage;
 import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.model.ChatMessage;
-import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.service.FormatService;
 import venture.Aust1n46.chat.service.PlayerApiService;
 import venture.Aust1n46.chat.xcut.VersionService;

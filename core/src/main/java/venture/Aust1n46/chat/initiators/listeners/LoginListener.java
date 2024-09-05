@@ -54,7 +54,7 @@ public class LoginListener implements Listener {
 			spigotFlatFileController.savePlayerData(ventureChatPlayer);
 			ventureChatPlayer.getMessages().clear();
 			ventureChatPlayer.setOnline(false);
-			ventureChatPlayer.setPlayer(null);
+			ventureChatPlayer.setPlayer((Player) null);
 			playerApiService.removeMineverseChatOnlinePlayerToMap(ventureChatPlayer);
 			log.debug("onPlayerQuit() ventureChatPlayer:{} quit", ventureChatPlayer);
 		}

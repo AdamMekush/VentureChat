@@ -66,7 +66,7 @@ public class VentureChatPlayer implements IVentureChatPlayer {
 	private List<IChatMessage> messages = new ArrayList<>();
 
 	@Override
-	public void setPlayer(UUID o) {
+	public void setPlayer(UUID uuid) {
 		this.player = null;
 	}
 

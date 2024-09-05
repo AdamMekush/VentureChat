@@ -96,6 +96,8 @@ public interface IVentureChatPlayer {
 
     boolean isModified();
 
+    void setPlayer(Player player);
+
     void setParty(UUID uuid);
 
     void setModified(boolean b);
