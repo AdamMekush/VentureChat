@@ -126,4 +126,5 @@ shadowJar {
     relocate 'net.md_5.bungee.config', 'shaded.net.md_5.bungee.config'
     relocate 'com.google.inject', 'shaded.com.google.inject'
     relocate 'org.aopalliance', 'shaded.org.aopalliance'
+    relocate 'jakarta.inject', 'shaded.jakarta.inject'
 }
