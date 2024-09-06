@@ -1,7 +1,6 @@
 package venture.Aust1n46.chat.model;
 
 import lombok.*;
-import venture.Aust1n46.chat.api.interfaces.IMuteContainer;
 
 @Getter
 @Setter

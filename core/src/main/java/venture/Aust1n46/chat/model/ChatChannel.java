@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import venture.Aust1n46.chat.api.interfaces.IChatChannel;
 
 @Getter
 @Setter

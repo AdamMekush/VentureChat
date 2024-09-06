@@ -18,7 +18,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.server.ServerCommandEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
+import venture.Aust1n46.chat.model.IVentureChatPlayer;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.localization.LocalizedMessage;

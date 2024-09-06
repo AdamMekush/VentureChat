@@ -3,10 +3,6 @@ package venture.Aust1n46.chat.model;
 import lombok.*;
 import lombok.Builder.Default;
 import org.bukkit.entity.Player;
-import venture.Aust1n46.chat.api.interfaces.IChatChannel;
-import venture.Aust1n46.chat.api.interfaces.IChatMessage;
-import venture.Aust1n46.chat.api.interfaces.IMuteContainer;
-import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
 
 import java.util.*;
 

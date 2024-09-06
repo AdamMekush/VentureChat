@@ -4,8 +4,8 @@ import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import venture.Aust1n46.chat.api.interfaces.IChatChannel;
-import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
+import venture.Aust1n46.chat.model.IChatChannel;
+import venture.Aust1n46.chat.model.IVentureChatPlayer;
 
 import java.util.Set;
 

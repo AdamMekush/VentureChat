@@ -1,4 +1,4 @@
-package venture.Aust1n46.chat.api.interfaces;
+package venture.Aust1n46.chat.model;
 
 import org.bukkit.entity.Player;
 
@@ -85,7 +85,6 @@ public interface IVentureChatPlayer {
 
     void setHost(boolean b);
 
-    //void setPlayer(Player player);
     void setPlayer(UUID player);
 
     boolean isPartyChat();

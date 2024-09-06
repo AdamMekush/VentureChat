@@ -5,7 +5,7 @@ import com.google.inject.Singleton;
 import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
-import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
+import venture.Aust1n46.chat.model.IVentureChatPlayer;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.model.*;
 import venture.Aust1n46.chat.utilities.FormatUtils;

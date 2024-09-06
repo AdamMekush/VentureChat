@@ -2,7 +2,7 @@ package venture.Aust1n46.chat.controllers.commands;
 
 import com.google.inject.Inject;
 import org.bukkit.command.CommandSender;
-import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
+import venture.Aust1n46.chat.model.IVentureChatPlayer;
 import venture.Aust1n46.chat.localization.InternalMessage;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.UniversalCommand;

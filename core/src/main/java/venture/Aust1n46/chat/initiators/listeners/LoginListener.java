@@ -8,7 +8,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
+import venture.Aust1n46.chat.model.IVentureChatPlayer;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.controllers.SpigotFlatFileController;
 import venture.Aust1n46.chat.initiators.application.VentureChat;

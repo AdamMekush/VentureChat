@@ -3,7 +3,7 @@ package venture.Aust1n46.chat.controllers.commands;
 import com.google.inject.Inject;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
-import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
+import venture.Aust1n46.chat.model.IVentureChatPlayer;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.localization.LocalizedMessage;

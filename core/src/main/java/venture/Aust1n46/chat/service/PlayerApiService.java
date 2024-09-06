@@ -2,7 +2,7 @@ package venture.Aust1n46.chat.service;
 
 import com.google.inject.Singleton;
 import org.bukkit.entity.Player;
-import venture.Aust1n46.chat.api.interfaces.IVentureChatPlayer;
+import venture.Aust1n46.chat.model.IVentureChatPlayer;
 import venture.Aust1n46.chat.model.VentureChatPlayer;
 
 import java.util.*;

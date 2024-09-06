@@ -1,4 +1,4 @@
-package venture.Aust1n46.chat.api.interfaces;
+package venture.Aust1n46.chat.model;
 
 public interface IMuteContainer {
     String getReason();

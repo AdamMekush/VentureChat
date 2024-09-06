@@ -1,11 +1,11 @@
-package venture.Aust1n46.chat.api.interfaces;
+package venture.Aust1n46.chat.model;
 
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
 
 public interface IChatMessage {
     int getHash();
 
-    void setComponent(com.comphenix.protocol.wrappers.WrappedChatComponent removedComponent);
+    void setComponent(WrappedChatComponent removedComponent);
 
     void setHash(int i);
 
