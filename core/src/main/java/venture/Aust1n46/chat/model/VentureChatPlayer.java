@@ -60,19 +60,4 @@ public class VentureChatPlayer implements IVentureChatPlayer {
 	private Set<String> blockedCommands = new HashSet<>();
 	@Default
 	private List<IChatMessage> messages = new ArrayList<>();
-
-	@Override
-	public void setPlayer(UUID uuid) {
-		this.player = null;
-	}
-
-	@Override
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
-
-	@Override
-	public void setParty(UUID uuid) {
-		this.party = uuid;
-	}
 }

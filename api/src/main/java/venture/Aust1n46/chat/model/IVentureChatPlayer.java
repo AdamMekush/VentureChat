@@ -85,8 +85,6 @@ public interface IVentureChatPlayer {
 
     void setHost(boolean b);
 
-    void setPlayer(UUID player);
-
     boolean isPartyChat();
 
     void setEditing(boolean b);
@@ -94,8 +92,6 @@ public interface IVentureChatPlayer {
     void setOnline(boolean b);
 
     boolean isModified();
-
-    void setPlayer(Player player);
 
     void setParty(UUID uuid);
 
@@ -106,4 +102,6 @@ public interface IVentureChatPlayer {
     Map<IChatChannel, Long> getCooldowns();
 
     Map<IChatChannel, List<Long>> getSpam();
+
+    void setPlayer(Player player);
 }
