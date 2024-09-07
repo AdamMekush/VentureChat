@@ -94,6 +94,7 @@ processResources {
 }
 
 shadowJar {
+    archiveBaseName = rootProject.name
     archiveClassifier.set('')
     relocate 'com.zaxxer.hikari', 'shaded.com.zaxxer.hikari'
     relocate 'net.md_5.bungee.config', 'shaded.net.md_5.bungee.config'

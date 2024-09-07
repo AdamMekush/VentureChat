@@ -14,10 +14,6 @@ allprojects {
 subprojects {
     apply plugin: 'java'
 
-    dependencies {
-        testImplementation 'junit:junit:4.13.2'
-    }
-
     jar {
         archiveBaseName = rootProject.name
     }
