@@ -60,9 +60,9 @@ public class Kickchannelall extends UniversalCommand {
 					.collect(Collectors.toSet());
 
 			if(sender instanceof Player) {
-				kickChannelPlayerEvent = new KickChannelPlayerEvent(player.getPlayer(), plugin.getServer().getPlayer(sender.getName()), kickedChannels);
+				kickChannelPlayerEvent = new KickChannelPlayerEvent(player, playerApiService.getMineverseChatPlayer(sender.getName()), kickedChannels);
 			} else {
-				kickChannelPlayerEvent = new KickChannelPlayerEvent(player.getPlayer(), null, kickedChannels);
+				kickChannelPlayerEvent = new KickChannelPlayerEvent(player, null, kickedChannels);
 			}
 			kickChannelPlayerEvent.callEvent();
 			if(kickChannelPlayerEvent.isCancelled()){
