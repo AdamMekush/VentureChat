@@ -88,9 +88,9 @@ public class Mute extends UniversalCommand {
 					if (time > 0) {
 						if (reason.isEmpty()) {
 							if(sender instanceof Player) {
-								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel), time);
+								mutePlayerEvent = new MutePlayerEvent(playerToMute, playerApiService.getMineverseChatPlayer(sender.getName()), Collections.singleton(channel), time);
 							} else {
-								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel), time);
+								mutePlayerEvent = new MutePlayerEvent(playerToMute, null, Collections.singleton(channel), time);
 							}
 							mutePlayerEvent.callEvent();
 							if(mutePlayerEvent.isCancelled()){
@@ -110,9 +110,9 @@ public class Mute extends UniversalCommand {
 							return;
 						} else {
 							if(sender instanceof Player) {
-								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel), time, reason);
+								mutePlayerEvent = new MutePlayerEvent(playerToMute, playerApiService.getMineverseChatPlayer(sender.getName()), Collections.singleton(channel), time, reason);
 							} else {
-								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel), time, reason);
+								mutePlayerEvent = new MutePlayerEvent(playerToMute, null, Collections.singleton(channel), time, reason);
 							}
 							mutePlayerEvent.callEvent();
 							if(mutePlayerEvent.isCancelled()){
@@ -135,9 +135,9 @@ public class Mute extends UniversalCommand {
 					} else {
 						if (reason.isEmpty()) {
 							if(sender instanceof Player) {
-								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel));
+								mutePlayerEvent = new MutePlayerEvent(playerToMute, playerApiService.getMineverseChatPlayer(sender.getName()), Collections.singleton(channel));
 							} else {
-								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel));
+								mutePlayerEvent = new MutePlayerEvent(playerToMute, null, Collections.singleton(channel));
 							}
 							mutePlayerEvent.callEvent();
 							if(mutePlayerEvent.isCancelled()){
@@ -156,9 +156,9 @@ public class Mute extends UniversalCommand {
 							return;
 						} else {
 							if(sender instanceof Player) {
-								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel), 0, reason);
+								mutePlayerEvent = new MutePlayerEvent(playerToMute, playerApiService.getMineverseChatPlayer(sender.getName()), Collections.singleton(channel), 0, reason);
 							} else {
-								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel), 0, reason);
+								mutePlayerEvent = new MutePlayerEvent(playerToMute, null, Collections.singleton(channel), 0, reason);
 							}
 							mutePlayerEvent.callEvent();
 							if(mutePlayerEvent.isCancelled()){

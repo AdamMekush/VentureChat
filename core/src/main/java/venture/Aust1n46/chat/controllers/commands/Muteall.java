@@ -56,9 +56,9 @@ public class Muteall extends UniversalCommand {
 					.collect(Collectors.toSet());
 			if (reason.isEmpty()) {
 				if(sender instanceof Player) {
-					mutePlayerEvent = new MutePlayerEvent(player.getPlayer(), plugin.getServer().getPlayer(sender.getName()), mutedChannels, 0);
+					mutePlayerEvent = new MutePlayerEvent(player, playerApiService.getMineverseChatPlayer(sender.getName()), mutedChannels, 0);
 				} else {
-					mutePlayerEvent = new MutePlayerEvent(player.getPlayer(), null, mutedChannels, 0);
+					mutePlayerEvent = new MutePlayerEvent(player, null, mutedChannels, 0);
 				}
 				mutePlayerEvent.callEvent();
 				if(mutePlayerEvent.isCancelled()){
@@ -85,9 +85,9 @@ public class Muteall extends UniversalCommand {
 				return;
 			} else {
 				if(sender instanceof Player) {
-					mutePlayerEvent = new MutePlayerEvent(player.getPlayer(), plugin.getServer().getPlayer(sender.getName()), mutedChannels, 0, reason);
+					mutePlayerEvent = new MutePlayerEvent(player, playerApiService.getMineverseChatPlayer(sender.getName()), mutedChannels, 0, reason);
 				} else {
-					mutePlayerEvent = new MutePlayerEvent(player.getPlayer(), null, mutedChannels, 0, reason);
+					mutePlayerEvent = new MutePlayerEvent(player, null, mutedChannels, 0, reason);
 				}
 				mutePlayerEvent.callEvent();
 				if(mutePlayerEvent.isCancelled()){
