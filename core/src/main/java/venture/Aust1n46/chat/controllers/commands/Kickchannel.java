@@ -3,7 +3,9 @@ package venture.Aust1n46.chat.controllers.commands;
 import com.google.inject.Inject;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import venture.Aust1n46.chat.api.events.ChannelLeaveEvent;
+import venture.Aust1n46.chat.api.events.KickChannelPlayerEvent;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.ChatChannel;
@@ -11,6 +13,8 @@ import venture.Aust1n46.chat.model.UniversalCommand;
 import venture.Aust1n46.chat.model.VentureChatPlayer;
 import venture.Aust1n46.chat.service.ConfigService;
 import venture.Aust1n46.chat.service.PlayerApiService;
+
+import java.util.Collections;
 
 public class Kickchannel extends UniversalCommand {
 	@Inject
@@ -27,6 +31,7 @@ public class Kickchannel extends UniversalCommand {
 
 	@Override
 	public void executeCommand(CommandSender sender, String command, String[] args) {
+		KickChannelPlayerEvent kickChannelPlayerEvent;
 		if (sender.hasPermission("venturechat.kickchannel")) {
 			if (args.length < 2) {
 				sender.sendMessage(LocalizedMessage.COMMAND_INVALID_ARGUMENTS.toString().replace("{command}", "/kickchannel").replace("{args}", "[player] [channel]"));
@@ -40,6 +45,16 @@ public class Kickchannel extends UniversalCommand {
 			ChatChannel channel = configService.getChannel(args[1]);
 			if (channel == null) {
 				sender.sendMessage(LocalizedMessage.INVALID_CHANNEL.toString().replace("{args}", args[1]));
+				return;
+			}
+
+			if(sender instanceof Player) {
+				kickChannelPlayerEvent = new KickChannelPlayerEvent(player.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel));
+			} else {
+				kickChannelPlayerEvent = new KickChannelPlayerEvent(player.getPlayer(), null, Collections.singleton(channel));
+			}
+			kickChannelPlayerEvent.callEvent();
+			if(kickChannelPlayerEvent.isCancelled()){
 				return;
 			}
 
