@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
+import venture.Aust1n46.chat.api.events.UnmutePlayerEvent;
 import venture.Aust1n46.chat.model.IVentureChatPlayer;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
@@ -17,6 +18,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +37,7 @@ public class Unmute extends UniversalCommand {
 
 	@Override
 	public void executeCommand(CommandSender sender, String command, String[] args) {
+		UnmutePlayerEvent unmutePlayerEvent;
 		if (sender.hasPermission("venturechat.mute")) {
 			if (args.length < 2) {
 				sender.sendMessage(LocalizedMessage.COMMAND_INVALID_ARGUMENTS.toString().replace("{command}", "/unmute").replace("{args}", "[channel] [player]"));
@@ -56,6 +59,17 @@ public class Unmute extends UniversalCommand {
 							.replace("{channel_name}", channel.getName()));
 					return;
 				}
+
+				if(sender instanceof Player) {
+					unmutePlayerEvent = new UnmutePlayerEvent(player.getPlayer(), plugin.getServer().getPlayer(sender.getName()), new HashSet<>(Collections.singleton(channel)));
+				} else {
+					unmutePlayerEvent = new UnmutePlayerEvent(player.getPlayer(), null, new HashSet<>(Collections.singleton(channel)));
+				}
+				unmutePlayerEvent.callEvent();
+				if(unmutePlayerEvent.isCancelled()){
+					return;
+				}
+
 				player.getMutes().remove(channel.getName());
 				sender.sendMessage(LocalizedMessage.UNMUTE_PLAYER_SENDER.toString().replace("{player}", player.getName()).replace("{channel_color}", channel.getColor())
 						.replace("{channel_name}", channel.getName()));
