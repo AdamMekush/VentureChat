@@ -5,9 +5,9 @@ import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
+import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.model.IChatChannel;
 import venture.Aust1n46.chat.model.IVentureChatPlayer;
-import venture.Aust1n46.chat.initiators.application.VentureChat;
 import venture.Aust1n46.chat.service.PlayerApiService;
 
 public class VentureChatPlaceholders extends PlaceholderExpansion {
