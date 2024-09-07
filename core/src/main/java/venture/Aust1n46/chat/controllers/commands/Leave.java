@@ -35,7 +35,7 @@ public class Leave extends PlayerCommand {
 				return;
 			}
 
-			ChannelLeaveEvent channelLeaveEvent = new ChannelLeaveEvent(mcp.getPlayer(), channel);
+			ChannelLeaveEvent channelLeaveEvent = new ChannelLeaveEvent(mcp, channel);
 			channelLeaveEvent.callEvent();
 			if(channelLeaveEvent.isCancelled()){
 				return;

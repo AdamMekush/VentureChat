@@ -1,19 +1,22 @@
 package venture.Aust1n46.chat.api.events;
 
-import org.bukkit.entity.Player;
+import lombok.Getter;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import venture.Aust1n46.chat.model.IChatChannel;
+import venture.Aust1n46.chat.model.IVentureChatPlayer;
 
 // TODO
 public class ChannelLeaveEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled;
-    private Player player;
+    @Getter
+    private IVentureChatPlayer player;
+    @Getter
     private IChatChannel channel;
 
-    public ChannelLeaveEvent(Player player, IChatChannel channel) {
+    public ChannelLeaveEvent(IVentureChatPlayer player, IChatChannel channel) {
         this.player = player;
         this.channel = channel;
 
@@ -39,11 +42,4 @@ public class ChannelLeaveEvent extends Event implements Cancellable {
         this.cancelled = cancel;
     }
 
-    public Player getPlayer() {
-        return this.player;
-    }
-
-    public IChatChannel getChannel() {
-        return this.channel;
-    }
 }

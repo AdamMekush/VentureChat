@@ -58,7 +58,7 @@ public class Kickchannel extends UniversalCommand {
 				return;
 			}
 
-			ChannelLeaveEvent channelLeaveEvent = new ChannelLeaveEvent(player.getPlayer(), channel);
+			ChannelLeaveEvent channelLeaveEvent = new ChannelLeaveEvent(player, channel);
 			channelLeaveEvent.callEvent();
 			if(channelLeaveEvent.isCancelled()){
 				return;

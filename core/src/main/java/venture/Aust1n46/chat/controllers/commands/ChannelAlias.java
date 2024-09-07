@@ -29,7 +29,7 @@ public class ChannelAlias extends PlayerCommand {
 		for (ChatChannel channel : configService.getChatChannels()) {
 			if (commandLabel.toLowerCase().equals(channel.getAlias())) {
 				if (args.length == 0) {
-					ChannelLeaveEvent channelLeaveEvent = new ChannelLeaveEvent(mcp.getPlayer(), mcp.getCurrentChannel());
+					ChannelLeaveEvent channelLeaveEvent = new ChannelLeaveEvent(mcp, mcp.getCurrentChannel());
 					channelLeaveEvent.callEvent();
 					if(channelLeaveEvent.isCancelled()){
 						return;
