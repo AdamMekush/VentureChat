@@ -61,9 +61,9 @@ public class Unmute extends UniversalCommand {
 				}
 
 				if(sender instanceof Player) {
-					unmutePlayerEvent = new UnmutePlayerEvent(player.getPlayer(), plugin.getServer().getPlayer(sender.getName()), new HashSet<>(Collections.singleton(channel)));
+					unmutePlayerEvent = new UnmutePlayerEvent(player, playerApiService.getMineverseChatPlayer(sender.getName()), new HashSet<>(Collections.singleton(channel)));
 				} else {
-					unmutePlayerEvent = new UnmutePlayerEvent(player.getPlayer(), null, new HashSet<>(Collections.singleton(channel)));
+					unmutePlayerEvent = new UnmutePlayerEvent(player, null, new HashSet<>(Collections.singleton(channel)));
 				}
 				unmutePlayerEvent.callEvent();
 				if(unmutePlayerEvent.isCancelled()){

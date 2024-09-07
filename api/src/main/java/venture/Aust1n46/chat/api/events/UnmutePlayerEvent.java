@@ -1,21 +1,25 @@
 package venture.Aust1n46.chat.api.events;
 
-import org.bukkit.entity.Player;
+import lombok.Getter;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import venture.Aust1n46.chat.model.IChatChannel;
+import venture.Aust1n46.chat.model.IVentureChatPlayer;
 
 import java.util.Set;
 
 public class UnmutePlayerEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled;
-    private Player victim;
-    private Player operator;
+    @Getter
+    private IVentureChatPlayer victim;
+    @Getter
+    private IVentureChatPlayer operator;
+    @Getter
     private Set<IChatChannel> channels;
 
-    public UnmutePlayerEvent(Player victim, Player operator, Set<IChatChannel> channels) {
+    public UnmutePlayerEvent(IVentureChatPlayer victim, IVentureChatPlayer operator, Set<IChatChannel> channels) {
         this.victim = victim;
         this.operator = operator;
         this.channels = channels;
@@ -40,15 +44,4 @@ public class UnmutePlayerEvent extends Event implements Cancellable {
         this.cancelled = cancel;
     }
 
-    public Player getVictim() {
-        return this.victim;
-    }
-
-    public Player getOperator() {
-        return this.operator;
-    }
-
-    public Set<IChatChannel> getChannels() {
-        return this.channels;
-    }
 }
