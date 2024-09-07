@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
+import venture.Aust1n46.chat.api.events.MutePlayerEvent;
 import venture.Aust1n46.chat.model.IVentureChatPlayer;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
@@ -40,6 +41,7 @@ public class Mute extends UniversalCommand {
 
 	@Override
 	public void executeCommand(CommandSender sender, String command, String[] args) {
+		MutePlayerEvent mutePlayerEvent;
 		if (sender.hasPermission("venturechat.mute")) {
 			if (args.length < 2) {
 				sender.sendMessage(LocalizedMessage.COMMAND_INVALID_ARGUMENTS.toString().replace("{command}", "/mute").replace("{args}", "[channel] [player] {time} {reason}"));
@@ -85,6 +87,16 @@ public class Mute extends UniversalCommand {
 
 					if (time > 0) {
 						if (reason.isEmpty()) {
+							if(sender instanceof Player) {
+								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel), time);
+							} else {
+								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel), time);
+							}
+							mutePlayerEvent.callEvent();
+							if(mutePlayerEvent.isCancelled()){
+								return;
+							}
+
 							playerToMute.getMutes().put(channel.getName(), new MuteContainer(channel.getName(), datetime + time, ""));
 							String timeString = FormatUtils.parseTimeStringFromMillis(time);
 							sender.sendMessage(LocalizedMessage.MUTE_PLAYER_SENDER_TIME.toString().replace("{player}", playerToMute.getName())
@@ -97,6 +109,16 @@ public class Mute extends UniversalCommand {
 							}
 							return;
 						} else {
+							if(sender instanceof Player) {
+								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel), time, reason);
+							} else {
+								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel), time, reason);
+							}
+							mutePlayerEvent.callEvent();
+							if(mutePlayerEvent.isCancelled()){
+								return;
+							}
+
 							playerToMute.getMutes().put(channel.getName(), new MuteContainer(channel.getName(), datetime + time, reason));
 							String timeString = FormatUtils.parseTimeStringFromMillis(time);
 							sender.sendMessage(LocalizedMessage.MUTE_PLAYER_SENDER_TIME_REASON.toString().replace("{player}", playerToMute.getName())
@@ -112,6 +134,16 @@ public class Mute extends UniversalCommand {
 						}
 					} else {
 						if (reason.isEmpty()) {
+							if(sender instanceof Player) {
+								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel));
+							} else {
+								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel));
+							}
+							mutePlayerEvent.callEvent();
+							if(mutePlayerEvent.isCancelled()){
+								return;
+							}
+
 							playerToMute.getMutes().put(channel.getName(), new MuteContainer(channel.getName(), 0, ""));
 							sender.sendMessage(LocalizedMessage.MUTE_PLAYER_SENDER.toString().replace("{player}", playerToMute.getName())
 									.replace("{channel_color}", channel.getColor()).replace("{channel_name}", channel.getName()));
@@ -123,6 +155,16 @@ public class Mute extends UniversalCommand {
 							}
 							return;
 						} else {
+							if(sender instanceof Player) {
+								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), plugin.getServer().getPlayer(sender.getName()), Collections.singleton(channel), 0, reason);
+							} else {
+								mutePlayerEvent = new MutePlayerEvent(playerToMute.getPlayer(), null, Collections.singleton(channel), 0, reason);
+							}
+							mutePlayerEvent.callEvent();
+							if(mutePlayerEvent.isCancelled()){
+								return;
+							}
+
 							playerToMute.getMutes().put(channel.getName(), new MuteContainer(channel.getName(), 0, reason));
 							sender.sendMessage(LocalizedMessage.MUTE_PLAYER_SENDER_REASON.toString().replace("{player}", playerToMute.getName())
 									.replace("{channel_color}", channel.getColor()).replace("{channel_name}", channel.getName()).replace("{reason}", reason));

@@ -2,15 +2,17 @@ package venture.Aust1n46.chat.controllers.commands;
 
 import com.google.inject.Inject;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import venture.Aust1n46.chat.api.events.MutePlayerEvent;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
-import venture.Aust1n46.chat.model.ChatChannel;
-import venture.Aust1n46.chat.model.MuteContainer;
-import venture.Aust1n46.chat.model.UniversalCommand;
-import venture.Aust1n46.chat.model.VentureChatPlayer;
+import venture.Aust1n46.chat.model.*;
 import venture.Aust1n46.chat.service.ConfigService;
 import venture.Aust1n46.chat.service.PlayerApiService;
 import venture.Aust1n46.chat.utilities.FormatUtils;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Muteall extends UniversalCommand {
 	@Inject
@@ -27,6 +29,7 @@ public class Muteall extends UniversalCommand {
 
 	@Override
 	public void executeCommand(CommandSender sender, String command, String[] args) {
+		MutePlayerEvent mutePlayerEvent;
 		if (sender.hasPermission("venturechat.mute")) {
 			if (args.length < 1) {
 				sender.sendMessage(LocalizedMessage.COMMAND_INVALID_ARGUMENTS.toString().replace("{command}", "/muteall").replace("{args}", "[player] {reason}"));
@@ -45,7 +48,23 @@ public class Muteall extends UniversalCommand {
 				}
 				reason = FormatUtils.FormatStringAll(reasonBuilder.toString().trim());
 			}
+
+			Set<IChatChannel> mutedChannels = player.getMutes()
+					.keySet()
+					.stream()
+					.map(configService::getChannel)
+					.collect(Collectors.toSet());
 			if (reason.isEmpty()) {
+				if(sender instanceof Player) {
+					mutePlayerEvent = new MutePlayerEvent(player.getPlayer(), plugin.getServer().getPlayer(sender.getName()), mutedChannels, 0);
+				} else {
+					mutePlayerEvent = new MutePlayerEvent(player.getPlayer(), null, mutedChannels, 0);
+				}
+				mutePlayerEvent.callEvent();
+				if(mutePlayerEvent.isCancelled()){
+					return;
+				}
+
 				boolean bungee = false;
 				for (ChatChannel channel : configService.getChatChannels()) {
 					if (channel.isMutable()) {
@@ -65,6 +84,16 @@ public class Muteall extends UniversalCommand {
 					player.setModified(true);
 				return;
 			} else {
+				if(sender instanceof Player) {
+					mutePlayerEvent = new MutePlayerEvent(player.getPlayer(), plugin.getServer().getPlayer(sender.getName()), mutedChannels, 0, reason);
+				} else {
+					mutePlayerEvent = new MutePlayerEvent(player.getPlayer(), null, mutedChannels, 0, reason);
+				}
+				mutePlayerEvent.callEvent();
+				if(mutePlayerEvent.isCancelled()){
+					return;
+				}
+
 				boolean bungee = false;
 				for (ChatChannel channel : configService.getChatChannels()) {
 					if (channel.isMutable()) {
