@@ -36,7 +36,7 @@ public class Channel extends PlayerCommand {
 				return;
 			}
 			ChatChannel channel = configService.getChannel(args[0]);
-			ChannelJoinEvent channelJoinEvent = new ChannelJoinEvent(mcp.getPlayer(), channel,
+			ChannelJoinEvent channelJoinEvent = new ChannelJoinEvent(mcp, channel,
 					LocalizedMessage.SET_CHANNEL.toString().replace("{channel_color}", channel.getColor() + "").replace("{channel_name}", channel.getName()));
 			plugin.getServer().getPluginManager().callEvent(channelJoinEvent);
 			handleChannelJoinEvent(channelJoinEvent);
@@ -49,7 +49,7 @@ public class Channel extends PlayerCommand {
 		if (event.isCancelled())
 			return;
 		IChatChannel channel = event.getChannel();
-		IVentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(event.getPlayer());
+		IVentureChatPlayer mcp = playerApiService.getOnlineMineverseChatPlayer(event.getPlayer().getPlayer());
 		if (channel.isPermissionRequired()) {
 			if (!mcp.getPlayer().hasPermission(channel.getPermission())) {
 				mcp.getListening().remove(channel.getName());
