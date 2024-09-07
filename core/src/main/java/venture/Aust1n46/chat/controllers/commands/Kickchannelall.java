@@ -3,6 +3,7 @@ package venture.Aust1n46.chat.controllers.commands;
 import com.google.inject.Inject;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import venture.Aust1n46.chat.api.events.ChannelLeaveEvent;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
 import venture.Aust1n46.chat.model.ChatChannel;
@@ -45,6 +46,13 @@ public class Kickchannelall extends UniversalCommand {
 					}
 				}
 			}
+
+			ChannelLeaveEvent channelLeaveEvent = new ChannelLeaveEvent(player.getPlayer(), player.getCurrentChannel());
+			channelLeaveEvent.callEvent();
+			if(channelLeaveEvent.isCancelled()){
+				return;
+			}
+
 			player.getListening().clear();
 			sender.sendMessage(LocalizedMessage.KICK_CHANNEL_ALL_SENDER.toString().replace("{player}", player.getName()));
 			player.getListening().add(configService.getDefaultChannel().getName());

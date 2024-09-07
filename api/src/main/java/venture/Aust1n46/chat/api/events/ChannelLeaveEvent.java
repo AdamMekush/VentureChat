@@ -6,6 +6,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import venture.Aust1n46.chat.model.IChatChannel;
 
+// TODO
 public class ChannelLeaveEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled;

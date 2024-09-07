@@ -8,6 +8,7 @@ import venture.Aust1n46.chat.model.IChatChannel;
 
 import java.util.Set;
 
+// TODO
 public class KickChannelPlayerEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled;

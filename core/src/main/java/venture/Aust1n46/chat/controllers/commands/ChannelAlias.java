@@ -2,6 +2,7 @@ package venture.Aust1n46.chat.controllers.commands;
 
 import com.google.inject.Inject;
 import org.bukkit.entity.Player;
+import venture.Aust1n46.chat.api.events.ChannelLeaveEvent;
 import venture.Aust1n46.chat.model.IVentureChatPlayer;
 import venture.Aust1n46.chat.controllers.PluginMessageController;
 import venture.Aust1n46.chat.localization.LocalizedMessage;
@@ -28,6 +29,12 @@ public class ChannelAlias extends PlayerCommand {
 		for (ChatChannel channel : configService.getChatChannels()) {
 			if (commandLabel.toLowerCase().equals(channel.getAlias())) {
 				if (args.length == 0) {
+					ChannelLeaveEvent channelLeaveEvent = new ChannelLeaveEvent(mcp.getPlayer(), mcp.getCurrentChannel());
+					channelLeaveEvent.callEvent();
+					if(channelLeaveEvent.isCancelled()){
+						return;
+					}
+
 					mcp.getPlayer()
 							.sendMessage(LocalizedMessage.SET_CHANNEL.toString().replace("{channel_color}", channel.getColor() + "").replace("{channel_name}", channel.getName()));
 					if (mcp.getConversation() != null) {
